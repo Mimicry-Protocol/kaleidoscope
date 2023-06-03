@@ -1,2 +1,2 @@
-# kaleidoscope
-Kaleidoscope is an open-source API for safely querying metrics for use with pantomime markets.
+# Kaleidoscope
+Kaleidoscope is an open-source API for safely querying metrics for use with prediction markets.
