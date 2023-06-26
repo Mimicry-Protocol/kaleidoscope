@@ -50,7 +50,7 @@ const kaleidoscope = new Kaleidoscope(config);
 ```
 
 ## Usage
-Kaleidoscope provides a number of methods to interact with the providers. See [`./api/`](https://github.com/Mimicry-Protocol/kaleidoscope/blob/main/api/) for a full example.
+Kaleidoscope provides a number of methods to interact with the providers. See [`./example/`](https://github.com/Mimicry-Protocol/kaleidoscope/blob/main/example/) for a full example.
 
 Here is a summary of the methods available:
 ```typescript
