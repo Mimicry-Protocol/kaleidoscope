@@ -123,25 +123,27 @@ This builds to `/dist` and runs the project in watch mode so any edits you save 
 ## MVP Roadmap
 - [ ] support Chain: ethereum NFTs
 - [ ] support Provider: DIA
+- [ ] support Provider: NFTBank
+- [ ] support Provider: Reservoir
+- [ ] support Provider: CoinGecko
 - [ ] support Metric: Floor Price
 - [ ] support Currency: ETH
 - [ ] support Consensus Method: Median
 - [ ] support getCandles() method, 1d timeframe
 
 ## Backlog
-- [ ] support Provider: NFTBank
-- [ ] support Provider: Reservoir
-- [ ] support Provider: CoinGecko
+- [ ] support Chain: polygon NFTs
+- [ ] support Chain: solana NFTs
+- [ ] support Currency: MATIC
+- [ ] support Currency: SOL
+
+- [ ] support Provider: HelloMoon
 - [ ] support Provider: Center
 - [ ] support Provider: Zash
-- [ ] support Chain: polygon NFTs
-- [ ] support Currency: MATIC
-- [ ] support Provider: HelloMoon
-- [ ] support Chain: solana NFTs
-- [ ] support Currency: SOL
 - [ ] support Provider: NFTGo
 - [ ] support Provider: Nefertiti
 - [ ] support Provider: Gallop
+
 - [ ] support Currency: USD
 - [ ] support Metric: Market Cap
 - [ ] support Consensus Method: MAD_Mean
