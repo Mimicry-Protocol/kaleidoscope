@@ -33,9 +33,9 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "kaleidoscope",
+  "name": "@mimicry/kaleidoscope",
   "author": "Aslan Goldenhour",
-  "description": "Kaleidoscope is an NPM package that aggregates multiple data providers for safely querying metrics for use within prediction markets.",
+  "description": "Kaleidoscope is an NPM package that conveniently aggregates responses from multiple NFT data providers.",
   "repository": "https://github.com/Mimicry-Protocol/kaleidoscope",
   "keywords": [
     "mimicry",
