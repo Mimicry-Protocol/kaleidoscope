@@ -1,0 +1,86 @@
+{
+  "version": "0.1.0",
+  "license": "GPL-3.0-or-later",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --no-cache",
+    "analyize": "tsdx lint --fix && tsdx test --no-cache && size-limit",
+    "lint": "tsdx lint",
+    "lint:fix": "tsdx lint --fix",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "kaleidoscope",
+  "author": "Aslan Goldenhour",
+  "description": "Kaleidoscope is an NPM package that aggregates multiple data providers for safely querying metrics for use within prediction markets.",
+  "repository": "https://github.com/Mimicry-Protocol/kaleidoscope",
+  "keywords": [
+    "mimicry",
+    "kaleidoscope",
+    "nft",
+    "nfts",
+    "floor",
+    "floor price",
+    "dia",
+    "reservoir",
+    "nftgo",
+    "coingecko",
+    "center",
+    "nefertiti",
+    "gallop",
+    "nftbank",
+    "zash",
+    "hellomoon"
+  ],
+  "module": "dist/kaleidoscope.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/kaleidoscope.cjs.production.min.js",
+      "limit": "100 KB"
+    },
+    {
+      "path": "dist/kaleidoscope.esm.js",
+      "limit": "100 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.2.6",
+    "husky": "^8.0.3",
+    "size-limit": "^8.2.6",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.5.3",
+    "typescript": "^5.1.3"
+  },
+  "jest": {
+    "globals": {
+      "__DEV__": true
+    }
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  }
+}
