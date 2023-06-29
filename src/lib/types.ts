@@ -1,9 +1,9 @@
 import { Decimal } from 'decimal.js';
 import {
-  Chain, 
-  ConsensusFilter, 
-  ConsensusMethod, 
-  Currency, 
+  Chain,
+  ConsensusFilter,
+  ConsensusMethod,
+  Currency,
   Metric,
 } from './enums';
 
@@ -20,7 +20,7 @@ export type ApiConfig = {
 export type ConsensusMechanism = {
   filter: ConsensusFilter;
   method: ConsensusMethod;
-}
+};
 
 export type CurrencyInfo = {
   symbol: Currency;
@@ -43,11 +43,11 @@ export interface NftCollectionInfo {
 }
 
 export type ThrottleConfig = {
-  limit: number;    // number of requests allowed per interval
+  limit: number; // number of requests allowed per interval
   interval: number; // in milliseconds
-}
+};
 
 export type Value = {
-    currency: CurrencyInfo;
-    amount: Amount;
+  currency: CurrencyInfo;
+  amount: Amount;
 };
