@@ -34,17 +34,23 @@ import { Kaleidoscope } from "@mimicry/kaleidoscope";
 import 'dotenv/config';
 
 const config = {
-    apiKeys: {
-        reservoir: process.env.RESERVOIR_KEY
-        , nftgo: process.env.NFTGO_KEY
-        , coingecko: process.env.COINGECKO_KEY
-        , center: process.env.CENTER_KEY
-        , nefertiti: process.env.NEFERTITI_KEY
-        , gallop: process.env.GALLOP_KEY
-        , nftbank: process.env.NFTBANK_KEY
-        , zash: process.env.ZASH_KEY
-        , hellomoon: process.env.HELLOMOON_KEY
+  dataProviders: {
+    nfts: {
+      dia: process.env.DIA_KEY
+      , reservoir: process.env.RESERVOIR_KEY
+      , nftgo: process.env.NFTGO_KEY
+      , coingecko: process.env.COINGECKO_KEY
+      , center: process.env.CENTER_KEY
+      , nefertiti: process.env.NEFERTITI_KEY
+      , gallop: process.env.GALLOP_KEY
+      , nftbank: process.env.NFTBANK_KEY
+      , zash: process.env.ZASH_KEY
+      , hellomoon: process.env.HELLOMOON_KEY
+    },
+    fungibleTokens: {
+      coingecko: process.env.COINGECKO_KEY
     }
+  }
 };
 const kaleidoscope = new Kaleidoscope(config);
 ```
@@ -78,7 +84,7 @@ const value: bigint = await kaleidoscope.getValueFromConfig({
     chain: chains.ETHEREUM,                     // optional, ETHEREUM is the default
     metric: metrics.FLOOR_PRICE,                // optional, FLOOR_PRICE is the default
     consensusMethod: consensusMethods.MEDIAN,   // optional, MEDIAN is the default
-    currenecy: currencies.NATIVE,               // optional, NATIVE is the default
+    currency: currencies.NATIVE,                // optional, NATIVE is the default
     providers: [providers.ALL]                  // optional, ALL is the default
 });
 
