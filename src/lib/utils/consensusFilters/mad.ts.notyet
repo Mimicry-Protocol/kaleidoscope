@@ -1,0 +1,32 @@
+import { Decimal } from "decimal.js";
+
+/**
+ * Return all values that fall within the Mean Absolute Deviation of the mean
+ *
+ * @param values A list of Decimals
+ * @returns A filtered list of Decimals
+ */
+export function mad(values: Array<Decimal>): Array<Decimal> {
+  if (values.length === 0) return values;
+
+  const mean: Decimal = values
+    .reduce((acc: Decimal, val: Decimal) => acc.plus(val), new Decimal(0))
+    .dividedBy(values.length);
+
+  const deviations: Decimal[] = values.map((num) => num.minus(mean).absoluteValue());
+
+  const meanAbsoluteDeviation: Decimal = deviations
+    .reduce((acc: Decimal, val: Decimal) => acc.plus(val), new Decimal(0))
+    .dividedBy(deviations.length);
+
+  // Calculate the lower and upper bounds of the filtered range
+  const lowerBound: Decimal = mean.minus(meanAbsoluteDeviation);
+  const upperBound: Decimal = mean.plus(meanAbsoluteDeviation);
+
+  // Filter the values that fall within the range
+  const filteredValues: Decimal[] = values.filter(
+    (num) => num.greaterThanOrEqualTo(lowerBound) && num.lessThanOrEqualTo(upperBound)
+  );
+
+  return filteredValues;
+}
