@@ -4,7 +4,7 @@ import { FungibleDataProvider } from "./vendors/dataProviders/fungibleToken/Fung
 import { NftCollectionDataProvider } from "./vendors/dataProviders/nftCollection/NftCollectionDataProvider";
 
 export class Kaleidoscope {
-    private providers: any;
+    private providers: any[] = [];
 
     constructor(_config: any) {
         if (__DEV__) {
