@@ -1,4 +1,3 @@
-import ky from "ky";
 import { Chain } from '../../../../../enums';
 import { ContractPointer } from '../../../../../types';
 import { numberToBigInt } from '../../../../../utils/numberToBigInt';
@@ -19,18 +18,19 @@ export class DiaNonFungible extends RestfulProvider
     const host = this.getApiHost();
     const chain = this.getBlockchain(_contract.chain);
     const uri = `${host}NFTFloor/${chain}/${_contract.address}`;
+    
+    const response = await fetch(uri);
+    const json = await response.json();
+    const floor = json.Floor_Price;
+    return numberToBigInt(Number(floor), 18);
 
-    try {
-      const response: any = await ky.get(uri, this.getKyConfig()).json();
-      const floor = response.Floor_Price;
-      return numberToBigInt(Number(floor), 18);
-    } catch (err: any) {
-      throw new Error(err);
-    }
+    // @TODO: Add support for a library with retry logic.
+    // e.g. await ky.get(uri, this.getKyConfig()).json();
   }
 
-  getBlockchain(_chain: Chain): string {
+  getBlockchain(_chain?: Chain): string {
     switch (_chain) {
+      case undefined:
       case Chain.ETHEREUM:
         return 'Ethereum';
       default:

@@ -23,7 +23,7 @@ export type CurrencyInfo = {
 };
 
 export type ContractPointer = {
-  chain: Chain;
+  chain?: Chain;
   address: string;
 };
 
