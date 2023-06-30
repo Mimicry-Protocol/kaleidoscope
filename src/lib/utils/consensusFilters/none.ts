@@ -1,4 +1,4 @@
-import { Value } from "../../types";
+import { Value } from '../../types';
 
 /**
  * Return all values with no filtering

@@ -8,7 +8,9 @@ export function bigIntToValue(
   _value: bigint,
   _currencyInfo: CurrencyInfo
 ): Value {
-  const decimal = new Decimal(Number(_value) / Math.pow(10, _currencyInfo.decimals));
+  const decimal = new Decimal(
+    Number(_value) / Math.pow(10, _currencyInfo.decimals)
+  );
   const atomic = _value;
 
   return {

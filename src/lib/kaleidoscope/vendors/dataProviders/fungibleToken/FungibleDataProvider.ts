@@ -5,4 +5,5 @@ export abstract class FungibleDataProvider {
   abstract getPrice(_contracts: ContractPointer): Promise<Value>;
   abstract getBlockchain(_chain: Chain): string;
   abstract getThrottleConfig(): ThrottleConfig;
+  abstract getName(): string;
 }

@@ -1,5 +1,10 @@
 import { Decimal } from 'decimal.js';
-import { Chain, ConsensusFilter, ConsensusMethod, CurrencySymbol } from './enums';
+import {
+  Chain,
+  ConsensusFilter,
+  ConsensusMethod,
+  CurrencySymbol,
+} from './enums';
 
 export type Amount = {
   atomic: bigint; // e.g. 26476561042796000000000

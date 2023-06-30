@@ -1,23 +1,22 @@
 export enum Chain {
   ETHEREUM = 'ethereum',
-  // POLYGON,
-  // SOLANA,
+  POLYGON = 'polygon',
+  SOLANA = 'solana',
 }
 
 export enum Metric {
   FLOOR = 'floor',
-  // MARKET_CAP,
 }
 
 export enum CurrencySymbol {
   ETH = 'ETH',
   USD = 'USD',
-  // MATIC,
-  // SOL,
+  MATIC = 'MATIC',
+  SOL = 'SOL',
 }
 
 export enum ConsensusFilter {
-  MAD = 'mean-absolute-deviation',
+  // MAD = 'mean-absolute-deviation',
   NONE = 'none',
 }
 

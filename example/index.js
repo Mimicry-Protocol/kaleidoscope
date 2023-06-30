@@ -5,11 +5,12 @@ import 'dotenv/config';
     try {
         const config = {
             dataProviders: {
-                fungibleTokens: {
-                    dia: process.env.DIA_KEY
-                },
+                // fungibleTokens: {
+                //     dia: process.env.DIA_KEY
+                // },
                 nonFungibleTokens: {
-                    dia: process.env.DIA_KEY
+                    dia: process.env.DIA_KEY,
+                    nftBank: process.env.NFTBANK_KEY,
                 },
             }
         };
@@ -18,6 +19,7 @@ import 'dotenv/config';
             address: '0x4b15a9c28034dC83db40CD810001427d3BD7163D',
         });
         console.log(floor);
+        console.log(floor.data.sources);
     } catch (error) {
         console.log(error);
     }    

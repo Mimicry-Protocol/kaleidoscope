@@ -1,4 +1,4 @@
-import { Value } from "../../types";
+import { Value } from '../../types';
 
 /**
  * Return a random value from the list
