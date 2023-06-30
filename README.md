@@ -29,7 +29,7 @@ Kaleidoscope is an NPM package that conveniently aggregates responses from multi
 
 | | `Floor (ETH)` | `Floor (POLYGON)` | `Floor (SOLANA)` |
 |--|:--:|:--:|:--:|
-| DAI       | yes | no | no |
+| DIA       | yes | no | no |
 | NFTBank   | yes | no | no |
 | Reservoir | yes | no | no |
 
