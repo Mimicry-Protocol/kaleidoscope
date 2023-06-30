@@ -3,6 +3,7 @@ import { RestfulFactory } from '../RestfulFactory';
 import { NftCollectionDataProvider } from './NftCollectionDataProvider';
 import { DiaNonFungible } from './workers/DiaNonFungible';
 import { NftBank } from './workers/NftBank';
+import { Reservoir } from './workers/Reservoir';
 
 // @ts-ignore
 export class NftCollectionFactory extends RestfulFactory {
@@ -20,6 +21,9 @@ export class NftCollectionFactory extends RestfulFactory {
         break;
       case 'nftBank':
         this._dataProviders.push(new NftBank(_apiKey));
+        break;
+      case 'reservoir':
+        this._dataProviders.push(new Reservoir(_apiKey));
         break;
       default:
         throw new Error(

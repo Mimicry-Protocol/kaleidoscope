@@ -23,6 +23,16 @@
 
 Kaleidoscope is an NPM package that conveniently aggregates responses from multiple NFT data providers. The intended audience is application developers who wish to integrate fraud-resistant price data into their apps. The main benefit of Kaleidoscope is that it drastically reduces the risks related to price manipulation by closed-source data providers, and data provider down-time.
 
+## Supported Data Providers
+
+### NFT Collection Data Providers
+
+| | `Floor (ETH)` | `Floor (POLYGON)` | `Floor (SOLANA)` |
+|--|:--:|:--:|:--:|
+| DAI       | yes | no | no |
+| NFTBank   | yes | no | no |
+| Reservoir | yes | no | no |
+
 
 ## Installation
 Run `yarn add @mimicry/kaleidoscope@latest` to install the module.
@@ -74,6 +84,24 @@ This builds to `/dist` and runs the project in watch mode so any edits you save 
 - Use `yarn analyize` to fix linting issues, run tests, and check distribution size.
 - Use `yarn publish` to publish to NPM. Note there is a weird quirk where you need to commit and sync the `package.json` version number at the start of the process, before entering the NPM 2FA code. Otherwise, the version number will be out of sync with the published package.
 
+### Adding a New Provider
+
+To add a new provider, you need to do the following:
+1. Clone a worker of the same type as the provider you wish to add. For example, if you wish to add a new NFT Collection Data Provider, clone `./src/lib/kaleidoscope/vendors/dataProviders/nftCollection/workers/NftBank.ts`.
+2. Rename the cloned file and Class name to match the name of the provider you wish to add.
+3. Update the docs comment and the `apiHost` at the top of the file.
+4. Update the comments above each function to match the provider's API.
+5. Update the `uri` and `options` within each method to match the provider's API.
+6. Update the response parsing logic within each method to match the provider's API.
+7. Update the `getBlockchain` method as needed to match the provider's API.
+8. Update the `getName()` function to return the human-readable name of the provider.
+9. Add the provider's API_KEY to `./example/.env.example`.
+10. Add the provider's API_KEY to `.example/index.js`, along with a new `key`
+11. Add the new `key` to the `addDataProvider` method in the appropriate Factory class.
+12. Test the provider by running `node index.js` in the `./example` directory.
+13. Update the README.md to include the new provider in the list of supported providers.
+
+
 
 ## MVP Roadmap
 - [x] support Chain: ethereum NFTs
@@ -82,9 +110,9 @@ This builds to `/dist` and runs the project in watch mode so any edits you save 
 - [x] support Consensus Filter: None
 - [x] support Consensus Method: Median
 - [x] support Provider: DIA
-- [ ] support Retry straetgy with exponential backoff
-- [ ] support Provider: NFTBank
-- [ ] support Provider: Reservoir
+- [x] support Retry strategy with exponential backoff
+- [x] support Provider: NFTBank
+- [x] support Provider: Reservoir
 - [ ] support Provider: CoinGecko
 
 ## Backlog

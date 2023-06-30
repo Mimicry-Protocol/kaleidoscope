@@ -1,4 +1,4 @@
-import { ConsensusFilter, ConsensusMethod } from '../../../enums';
+import { Chain, ConsensusFilter, ConsensusMethod } from '../../../enums';
 import { ConsensusMechanism, ContractPointer, Value } from '../../../types';
 import { none, mad } from '../../../utils/consensusFilters';
 import { median, random } from '../../../utils/consensusMethods';
@@ -45,6 +45,10 @@ export class RestfulFactory {
       _consensusMechanism.method
     );
     return _consensusValue;
+  }
+
+  protected getBlockchain(_chain: Chain): string {
+    throw new Error('Method not implemented: addDataProvider()');
   }
 
   protected initProviders(_providers: any) {
