@@ -1,9 +1,11 @@
+import { CurrencyInfo } from '../types';
+
 /**
- * Given a number and the number of decimal places, return a bigint.
+ * Given a number and CurrencyInfo, return a bigint.
  */
 export function numberToBigInt(
   _value: number,
-  _decimals: number
+  _currencyInfo: CurrencyInfo
 ): bigint {
-  return BigInt(_value * Math.pow(10, _decimals));
+  return BigInt(_value * Math.pow(10, _currencyInfo.decimals));
 }

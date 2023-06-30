@@ -1,13 +1,13 @@
 import { Decimal } from 'decimal.js';
 import { bigIntToValue } from '../../../src/lib/utils/bigIntToValue';
 import { CurrencyInfo } from '../../../src/lib/types';
-import { Currency } from '../../../src/lib/enums';
+import { CurrencySymbol } from '../../../src/lib/enums';
 
 describe('bigIntToValue', () => {
   const currencyInfo: CurrencyInfo = {
     name: 'US Dollar',
-    symbol: Currency.USD,
-    decimals: BigInt(8),
+    symbol: CurrencySymbol.USD,
+    decimals: 8,
   };
 
   it('should return a Value object with correct values when no decimals', () => {
@@ -19,7 +19,7 @@ describe('bigIntToValue', () => {
         atomic: value,
         decimal: new Decimal(10),
       },
-      currency: currencyInfo,
+      currencyInfo: currencyInfo,
     });
   });
 
@@ -32,7 +32,7 @@ describe('bigIntToValue', () => {
         atomic: value,
         decimal: new Decimal(0.00000001),
       },
-      currency: currencyInfo,
+      currencyInfo: currencyInfo,
     });
   });
 });
