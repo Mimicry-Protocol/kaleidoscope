@@ -13,15 +13,15 @@ export class Kaleidoscope {
     if (!_config.dataProviders) {
       throw new Error('No data providers specified in config');
     }
+
+    // Setup NFT Collection Data Providers
     if (_config.dataProviders.nonFungibleTokens) {
-      this.nftCollection = new NftCollectionFactory(
-        _config.dataProviders.nonFungibleTokens
-      );
+      this.nftCollection = new NftCollectionFactory(_config);
     }
+
+    // Setup Fungible Token Data Providers
     if (_config.dataProviders.fungibleTokens) {
-      this.fungibleToken = new FungibleFactory(
-        _config.dataProviders.fungibleTokens
-      );
+      this.fungibleToken = new FungibleFactory(_config);
     }
   }
 }

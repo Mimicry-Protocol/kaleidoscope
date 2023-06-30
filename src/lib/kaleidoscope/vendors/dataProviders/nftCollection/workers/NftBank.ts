@@ -49,4 +49,8 @@ export class NftBank extends RestfulProvider
         throw new Error(`${_chain} is not a valid chain.`);
     }
   }
+
+  getName(): string {
+    return 'NFTBank';
+  }
 }

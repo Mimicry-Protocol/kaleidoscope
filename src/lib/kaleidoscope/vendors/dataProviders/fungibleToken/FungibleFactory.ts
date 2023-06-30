@@ -7,9 +7,9 @@ import { DiaFungible } from './workers/DiaFungible';
 export class FungibleFactory extends RestfulFactory {
   private _dataProviders: FungibleDataProvider[] = [];
 
-  constructor(_providers: any) {
-    super(_providers);
-    this.initProviders(_providers);
+  constructor(_config: any) {
+    super(_config);
+    this.initProviders(_config.dataProviders.fungibleTokens);
   }
 
   addDataProvider(_providerName: string, _apiKey: string) {

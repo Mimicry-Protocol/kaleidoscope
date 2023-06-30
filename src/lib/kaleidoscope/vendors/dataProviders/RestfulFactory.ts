@@ -1,20 +1,34 @@
 import { ConsensusFilter, ConsensusMethod } from '../../../enums';
-import { ConsensusMechanism, Value } from '../../../types';
-import { none } from '../../../utils/consensusFilters';
+import { ConsensusMechanism, ContractPointer, Value } from '../../../types';
+import { none, mad } from '../../../utils/consensusFilters';
 import { median, random } from '../../../utils/consensusMethods';
 
 export class RestfulFactory {
-  constructor(_providers: any) {
+  private _verbose: boolean = false;
+
+  constructor(_config: any) {
     if (__DEV__) {
       console.log(`${this.getName()} Constructor`);
     }
 
-    if (!_providers) {
+    if (_config.verbose) {
+      this._verbose = _config.verbose;
+    }
+
+    if (!_config.dataProviders) {
       throw new Error('No providers specified.');
     }
   }
 
-  applyConsensusMechanism(
+  getName(): string {
+    return this.constructor.name;
+  }
+
+  protected addDataProvider(_providerName: string, _apiKey: string) {
+    throw new Error('Method not implemented: addDataProvider()');
+  }
+
+  protected applyConsensusMechanism(
     _data: Value[],
     _consensusMechanism: ConsensusMechanism = {
       filter: ConsensusFilter.NONE,
@@ -33,27 +47,55 @@ export class RestfulFactory {
     return _consensusValue;
   }
 
-  getName(): string {
-    return this.constructor.name;
-  }
-
-  protected addDataProvider(_providerName: string, _apiKey: string) {
-    throw new Error('Method not implemented: addDataProvider()');
-  }
-
   protected initProviders(_providers: any) {
     for (const [_providerName, _apiKey] of Object.entries(_providers)) {
       this.addDataProvider(_providerName, String(_apiKey));
     }
   }
 
+  protected async runFactory(
+    _dataProviders: any,
+    _method: string,
+    _contract: ContractPointer,
+    _verbose?: boolean,
+    _consensusMechanism?: ConsensusMechanism,
+  ): Promise<any> {
+    const values: Value[] = [];
+    const sources: any[] = [];
+
+    for (const _provider of _dataProviders) {
+      const value: Value = await _provider[_method](_contract);
+      values.push(value);
+
+      sources.push({
+        source: _provider.getName(),
+        value: value.amount,
+      });
+    }
+
+    const finalValue = this.applyConsensusMechanism(values, _consensusMechanism);
+    
+    const verboseOutput = {
+      method: _method,
+      timestamp: new Date().toISOString(),
+      currencyInfo: finalValue.currencyInfo,
+      value: finalValue.amount,
+      sources: sources,
+    };
+    
+    return (this._verbose) ? verboseOutput : finalValue;
+  }
+
   private _applyConsensusFilter(
     _data: Value[],
-    _consensusFilter: ConsensusFilter = ConsensusFilter.NONE
+    _consensusFilter?: ConsensusFilter
   ): Value[] {
     switch (_consensusFilter) {
+      case undefined:
       case ConsensusFilter.NONE:
         return none(_data);
+      case ConsensusFilter.MAD:
+        return mad(_data);
       default:
         throw new Error(`${_consensusFilter} is not a valid consensus filter.`);
     }
@@ -61,9 +103,10 @@ export class RestfulFactory {
 
   private _applyConsensusMethod(
     _data: Value[],
-    _consensusMethod: ConsensusMethod = ConsensusMethod.MEDIAN
+    _consensusMethod?: ConsensusMethod
   ): Value {
     switch (_consensusMethod) {
+      case undefined:
       case ConsensusMethod.MEDIAN:
         return median(_data);
       case ConsensusMethod.RANDOM:

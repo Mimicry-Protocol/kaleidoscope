@@ -16,7 +16,7 @@ export enum CurrencySymbol {
 }
 
 export enum ConsensusFilter {
-  // MAD = 'mean-absolute-deviation',
+  MAD = 'mean-absolute-deviation',
   NONE = 'none',
 }
 
