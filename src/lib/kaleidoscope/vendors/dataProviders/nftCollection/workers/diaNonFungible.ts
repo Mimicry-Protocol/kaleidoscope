@@ -18,7 +18,7 @@ export class DiaNonFungible extends RestfulProvider
     const host = this.getApiHost();
     const chain = this.getBlockchain(_contract.chain);
     const uri = `${host}NFTFloor/${chain}/${_contract.address}`;
-    const json: any = await this.fetchJson(uri);
+    const json: any = await this.gotJson(uri);
 
     const currencyInfo = this.getCurrencyInfoFromChain(_contract.chain);
     return numberToValue(Number(json.Floor_Price), currencyInfo);

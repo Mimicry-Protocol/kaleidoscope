@@ -18,23 +18,18 @@ export class NftBank extends RestfulProvider
   async getFloor(_contract: ContractPointer): Promise<Value> {
     const host = this.getApiHost();
     const chain = this.getBlockchain(_contract.chain);
-    const uri =
-      host +
-      'collection/' +
-      _contract.address +
-      '/floor' +
-      '?' +
-      new URLSearchParams({
-        networkId: chain,
-      });
-
-    const json: any = await this.fetchJson(uri, {
-      method: 'GET',
+    const uri = `${host}collection/${_contract.address}/floor`;
+    const options = {
+      searchParams: {
+        networkId: chain
+      },
       headers: {
         Accept: 'application/json',
         'x-api-key': this.getApiKey(),
       },
-    });
+    };
+
+    const json: any = await this.gotJson(uri, options);
 
     const currencyInfo = this.getCurrencyInfoFromChain(_contract.chain);
     return numberToValue(Number(json.data.floor.eth), currencyInfo);

@@ -1,3 +1,4 @@
+import got from 'got';
 import { Chain, CurrencySymbol } from '../../../enums';
 import { ApiConfig, CurrencyInfo, ThrottleConfig } from '../../../types';
 
@@ -15,11 +16,17 @@ export class RestfulProvider {
     };
   }
 
-  // @TODO: Add support for a library with retry logic.
-  // const json: any = await ky.get(uri, this.getKyConfig()).json();
-  async fetchJson(_uri: string, _params?: any): Promise<any> {
-    const response = await fetch(_uri, _params);
-    const json: any = await response.json();
+  async gotJson(_uri: string, _options?: any): Promise<any> {
+    const combinedOptions = {
+      ..._options,
+      ...{
+        retry: {
+          limit: 5,
+          backoffLimit: 10
+        }
+      }
+    };
+    const json: any = await got(_uri, combinedOptions).json();
     return json;
   }
 
@@ -80,16 +87,6 @@ export class RestfulProvider {
         throw new Error(`${_symbol} is not a valid CurrencySymbol.`);
     }
   }
-
-  // getKyConfig(): any {
-  //   return {
-  //     timeout: 60_000,
-  //     retry: {
-  //       limit: 10,
-  //       backoffLimit: 15_000
-  //     }
-  //   };
-  // }
 
   getName(): string {
     return this.constructor.name;
