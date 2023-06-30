@@ -1,4 +1,3 @@
-// import ky from 'ky';
 import { Chain, CurrencySymbol } from '../../../../../enums';
 import { ContractPointer, Value } from '../../../../../types';
 import { RestfulProvider } from '../../RestfulProvider';
@@ -19,16 +18,10 @@ export class DiaNonFungible extends RestfulProvider
     const host = this.getApiHost();
     const chain = this.getBlockchain(_contract.chain);
     const uri = `${host}NFTFloor/${chain}/${_contract.address}`;
+    const json: any = this.fetchJson(uri);
     
-    const response = await fetch(uri);
-    const json: any = await response.json();
-    
-    // @TODO: Add support for a library with retry logic.
-    // const json: any = await ky.get(uri, this.getKyConfig()).json();
-
     // DIA currently only supports ETH.
     const currencyInfo = this.getCurrencyInfo(CurrencySymbol.ETH);
-    
     return numberToValue(Number(json.Floor_Price), currencyInfo);
   }
 

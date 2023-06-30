@@ -15,6 +15,14 @@ export class RestfulProvider {
     };
   }
 
+  // @TODO: Add support for a library with retry logic.
+  // const json: any = await ky.get(uri, this.getKyConfig()).json();
+  async fetchJson(_uri: string, _params?: any): Promise<any> {
+    const response = await fetch(_uri);
+    const json: any = await response.json();
+    return json;
+  }
+
   getApiHost(): string {
     return this._config.host;
   }
@@ -46,15 +54,15 @@ export class RestfulProvider {
     }
   }
 
-  getKyConfig(): any {
-    return {
-      timeout: 60_000,
-      retry: {
-        limit: 10,
-        backoffLimit: 15_000
-      }
-    };
-  }
+  // getKyConfig(): any {
+  //   return {
+  //     timeout: 60_000,
+  //     retry: {
+  //       limit: 10,
+  //       backoffLimit: 15_000
+  //     }
+  //   };
+  // }
 
   getName(): string {
     return this.constructor.name;
