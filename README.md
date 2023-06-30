@@ -108,27 +108,28 @@ To add a new provider, you need to do the following:
 - [x] support Currency: ETH
 - [x] support Metric: Floor Price
 - [x] support Consensus Filter: None
+- [x] support Consensus Filter: Mean Absolute Deviation
 - [x] support Consensus Method: Median
 - [x] support Provider: DIA
 - [x] support Retry strategy with exponential backoff
 - [x] support Provider: NFTBank
 - [x] support Provider: Reservoir
-- [ ] support Provider: CoinGecko
-- [ ] support for providers failing to return a response
 
 ## Backlog
+- [ ] support for providers failing to return a response
+- [ ] support Provider: CoinGecko
+- [ ] support Provider: HelloMoon
+- [ ] support Provider: Center
+- [ ] support Provider: Zash
+- [ ] support Provider: NFTGo
+- [ ] support Provider: Gallop
+
 - [ ] support getCandles() method, 1d timeframe
 - [ ] support Chain: polygon NFTs
 - [ ] support Chain: solana NFTs
 - [ ] support Currency: MATIC
 - [ ] support Currency: SOL
-- [ ] support Provider: HelloMoon
-- [ ] support Provider: Center
-- [ ] support Provider: Zash
-- [ ] support Provider: NFTGo
-- [ ] support Provider: Nefertiti
-- [ ] support Provider: Gallop
 - [ ] support Currency: USD
 - [ ] support Metric: Market Cap
-- [ ] support Consensus Filter: Mean Absolute Deviation
 - [ ] support getPrice for fungible tokens
+- [ ] support Provider: Nefertiti
