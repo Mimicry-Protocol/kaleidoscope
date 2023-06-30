@@ -1,5 +1,5 @@
 import { ConsensusFilter, ConsensusMethod } from '../../../enums';
-import { ConsensusMechanism } from '../../../types';
+import { ConsensusMechanism, Value } from '../../../types';
 import { none } from '../../../utils/consensusFilters';
 import { median, random } from '../../../utils/consensusMethods';
 
@@ -15,12 +15,12 @@ export class RestfulFactory {
   }
 
   applyConsensusMechanism(
-    _data: bigint[],
+    _data: Value[],
     _consensusMechanism: ConsensusMechanism = {
       filter: ConsensusFilter.NONE,
       method: ConsensusMethod.MEDIAN,
     }
-  ): bigint {
+  ): Value {
     const _filteredData = this._applyConsensusFilter(
       _data,
       _consensusMechanism.filter
@@ -48,9 +48,9 @@ export class RestfulFactory {
   }
 
   private _applyConsensusFilter(
-    _data: bigint[],
+    _data: Value[],
     _consensusFilter: ConsensusFilter = ConsensusFilter.NONE
-  ): bigint[] {
+  ): Value[] {
     switch (_consensusFilter) {
       case ConsensusFilter.NONE:
         return none(_data);
@@ -60,9 +60,9 @@ export class RestfulFactory {
   }
 
   private _applyConsensusMethod(
-    _data: bigint[],
+    _data: Value[],
     _consensusMethod: ConsensusMethod = ConsensusMethod.MEDIAN
-  ): bigint {
+  ): Value {
     switch (_consensusMethod) {
       case ConsensusMethod.MEDIAN:
         return median(_data);

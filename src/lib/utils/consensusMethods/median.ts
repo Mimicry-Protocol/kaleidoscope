@@ -1,18 +1,36 @@
-/**
- * Return the median value of the list of bigints.
- * If the list has an even number of values, return the mean of the two middle values.
- */
-export function median(values: Array<bigint>): bigint {
-  const sortedValues: bigint[] = values.sort((a, b) =>
-    a < b ? -1 : a > b ? 1 : 0
-  );
-  const middleIndex: number = Math.floor(sortedValues.length / 2);
+import { Decimal } from 'decimal.js';
+import { Value } from '../../types';
 
-  if (sortedValues.length % 2 === 0) {
-    // Even number of values
-    return (sortedValues[middleIndex] + sortedValues[middleIndex - 1]) / 2n;
+/**
+ * Return the median Value of the list of Values.
+ * If the list has an even number of Values, return the mean of the two middle Values.
+ */
+export function median(values: Value[]): Value {
+  if (values.length === 0) {
+      throw new Error('Cannot calculate median of empty array');
+  }
+
+  // sort values by their decimal amount
+  values.sort((a, b) => a.amount.decimal.comparedTo(b.amount.decimal));
+
+  const midIndex = Math.floor(values.length / 2);
+
+  // if values has an even length, calculate the average of the two middle amounts
+  if (values.length % 2 === 0) {
+      const midVal1 = values[midIndex - 1].amount.decimal;
+      const midVal2 = values[midIndex].amount.decimal;
+      const average = Decimal.div(Decimal.add(midVal1, midVal2), 2);
+
+      // create a new Value object with the calculated median
+      return {
+          currencyInfo: values[midIndex].currencyInfo, // assuming all values have the same currencyInfo
+          amount: {
+            atomic: BigInt(average.times(10 ** values[midIndex].currencyInfo.decimals).toFixed(0)), // convert decimal value times 10 to the power of decimals to bigint
+            decimal: average
+          }
+      };
   } else {
-    // Odd number of values
-    return sortedValues[middleIndex];
+      // if values has an odd length, return the middle Value
+      return values[midIndex];
   }
 }

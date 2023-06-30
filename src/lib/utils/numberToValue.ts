@@ -9,6 +9,6 @@ export function numberToValue(
   _value: number,
   _currencyInfo: CurrencyInfo
 ): Value {
-  const bigValue = numberToBigInt(_value, _currencyInfo);
+  const bigValue: bigint = numberToBigInt(_value, _currencyInfo);
   return bigIntToValue(bigValue, _currencyInfo);
 }

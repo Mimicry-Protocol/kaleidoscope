@@ -1,7 +1,7 @@
-import { ConsensusMechanism, ContractPointer } from '../../../../types';
+import { ConsensusMechanism, ContractPointer, Value } from '../../../../types';
 import { RestfulFactory } from '../RestfulFactory';
 import { FungibleDataProvider } from './FungibleDataProvider';
-import { DiaFungible } from './workers/diaFungible';
+import { DiaFungible } from './workers/DiaFungible';
 
 // @ts-ignore
 export class FungibleFactory extends RestfulFactory {
@@ -27,8 +27,8 @@ export class FungibleFactory extends RestfulFactory {
   async getPrices(
     _contracts: ContractPointer[],
     _consensusMechanism?: ConsensusMechanism
-  ): Promise<bigint[]> {
-    const values: bigint[] = [];
+  ): Promise<Value[]> {
+    const values: Value[] = [];
     for (const _contract of _contracts) {
       const value = await this.getPrice(_contract, _consensusMechanism);
       values.push(value);
@@ -40,8 +40,8 @@ export class FungibleFactory extends RestfulFactory {
   async getPrice(
     _contract: ContractPointer,
     _consensusMechanism?: ConsensusMechanism
-  ): Promise<bigint> {
-    const values: bigint[] = [];
+  ): Promise<Value> {
+    const values: Value[] = [];
     for (const _provider of this._dataProviders) {
       const value = await _provider.getPrice(_contract);
       values.push(value);

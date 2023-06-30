@@ -1,7 +1,7 @@
-import { ConsensusMechanism, ContractPointer } from '../../../../types';
+import { ConsensusMechanism, ContractPointer, Value } from '../../../../types';
 import { RestfulFactory } from '../RestfulFactory';
 import { NftCollectionDataProvider } from './NftCollectionDataProvider';
-import { DiaNonFungible } from './workers/diaNonFungible';
+import { DiaNonFungible } from './workers/DiaNonFungible';
 
 // @ts-ignore
 export class NftCollectionFactory extends RestfulFactory {
@@ -27,8 +27,8 @@ export class NftCollectionFactory extends RestfulFactory {
   async getFloors(
     _contracts: ContractPointer[],
     _consensusMechanism?: ConsensusMechanism
-  ): Promise<bigint[]> {
-    const values: bigint[] = [];
+  ): Promise<Value[]> {
+    const values: Value[] = [];
     for (const _contract of _contracts) {
       const value = await this.getFloor(_contract, _consensusMechanism);
       values.push(value);
@@ -40,8 +40,8 @@ export class NftCollectionFactory extends RestfulFactory {
   async getFloor(
     _contract: ContractPointer,
     _consensusMechanism?: ConsensusMechanism
-  ): Promise<bigint> {
-    const values: bigint[] = [];
+  ): Promise<Value> {
+    const values: Value[] = [];
     for (const _provider of this._dataProviders) {
       const value = await _provider.getFloor(_contract);
       values.push(value);
