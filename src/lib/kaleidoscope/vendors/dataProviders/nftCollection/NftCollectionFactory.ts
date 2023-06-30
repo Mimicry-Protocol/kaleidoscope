@@ -44,7 +44,7 @@ export class NftCollectionFactory extends RestfulFactory {
     const values: bigint[] = [];
     for (const _provider of this._dataProviders) {
       const value = await _provider.getFloor(_contract);
-      values.push(value);
+      values.push((value as unknown) as any);
     }
 
     const value = this.applyConsensusMechanism(values, _consensusMechanism);

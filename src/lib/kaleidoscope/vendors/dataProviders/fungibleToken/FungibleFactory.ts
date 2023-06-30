@@ -44,7 +44,7 @@ export class FungibleFactory extends RestfulFactory {
     const values: bigint[] = [];
     for (const _provider of this._dataProviders) {
       const value = await _provider.getPrice(_contract);
-      values.push(value);
+      values.push((value as unknown) as bigint);
     }
 
     const value = this.applyConsensusMechanism(values, _consensusMechanism);

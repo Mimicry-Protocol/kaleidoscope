@@ -76,7 +76,8 @@
   },
   "dependencies": {
     "decimal.js": "^10.4.3",
-    "ky": "^0.33.3"
+    "ky": "0.25",
+    "ky-universal": "0.8.2"
   },
   "jest": {
     "globals": {
