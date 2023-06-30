@@ -18,7 +18,7 @@ export class DiaNonFungible extends RestfulProvider
     const host = this.getApiHost();
     const chain = this.getBlockchain(_contract.chain);
     const uri = `${host}NFTFloor/${chain}/${_contract.address}`;
-    const json: any = this.fetchJson(uri);
+    const json: any = await this.fetchJson(uri);
     
     // DIA currently only supports ETH.
     const currencyInfo = this.getCurrencyInfo(CurrencySymbol.ETH);
