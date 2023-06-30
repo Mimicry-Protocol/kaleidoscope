@@ -23,5 +23,5 @@ export enum ConsensusFilter {
 
 export enum ConsensusMethod {
   MEDIAN = 'median',
-  // RANDOM = 'random',
+  RANDOM = 'random',
 }

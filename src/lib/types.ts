@@ -1,11 +1,5 @@
 import { Decimal } from 'decimal.js';
-import {
-  Chain,
-  ConsensusFilter,
-  ConsensusMethod,
-  Currency,
-  Metric,
-} from './enums';
+import { Chain, ConsensusFilter, ConsensusMethod, Currency } from './enums';
 
 export type Amount = {
   atomic: bigint; // e.g. 26476561042796000000000
@@ -28,19 +22,10 @@ export type CurrencyInfo = {
   decimals: bigint;
 };
 
-export interface FungibleInfo {
+export type ContractPointer = {
   chain: Chain;
   address: string;
-  currency: CurrencyInfo;
-  metric: Metric;
-}
-
-export interface NftCollectionInfo {
-  chain: Chain;
-  address: string;
-  currency: CurrencyInfo;
-  metric: Metric;
-}
+};
 
 export type ThrottleConfig = {
   limit: number; // number of requests allowed per interval

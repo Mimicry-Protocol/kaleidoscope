@@ -5,7 +5,7 @@ export class RestfulProvider {
 
   constructor(_apiKey: string, _apiHost: string) {
     if (__DEV__) {
-      console.log(`${this.constructor.name} Constructor using ${_apiHost}`);
+      console.log(`${this.getName()} Constructor using ${_apiHost}`);
     }
 
     this._config = {

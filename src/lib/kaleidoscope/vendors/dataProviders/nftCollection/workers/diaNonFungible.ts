@@ -1,3 +1,4 @@
+import { ContractPointer } from '../../../../../types';
 import { RestfulProvider } from '../../RestfulProvider';
 import { NftCollectionDataProvider } from '../NftCollectionDataProvider';
 
@@ -8,7 +9,7 @@ export class DiaNonFungible extends RestfulProvider
     super(_apiKey, apiHost);
   }
 
-  getFloor(): Promise<bigint> {
+  async getFloor(_contract: ContractPointer): Promise<bigint> {
     throw new Error('Method not implemented: getFloor()');
   }
 }

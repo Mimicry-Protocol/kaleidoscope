@@ -35,7 +35,7 @@ import 'dotenv/config';
 
 const config = {
   dataProviders: {
-    nfts: {
+    nonFungibleTokens: {
       dia: process.env.DIA_KEY
       , reservoir: process.env.RESERVOIR_KEY
       , nftgo: process.env.NFTGO_KEY
