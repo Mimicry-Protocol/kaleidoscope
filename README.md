@@ -114,6 +114,7 @@ To add a new provider, you need to do the following:
 - [x] support Provider: NFTBank
 - [x] support Provider: Reservoir
 - [ ] support Provider: CoinGecko
+- [ ] support for providers failing to return a response
 
 ## Backlog
 - [ ] support getCandles() method, 1d timeframe
