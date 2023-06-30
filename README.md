@@ -37,18 +37,6 @@ const config = {
   dataProviders: {
     nonFungibleTokens: {
       dia: process.env.DIA_KEY
-      , reservoir: process.env.RESERVOIR_KEY
-      , nftgo: process.env.NFTGO_KEY
-      , coingecko: process.env.COINGECKO_KEY
-      , center: process.env.CENTER_KEY
-      , nefertiti: process.env.NEFERTITI_KEY
-      , gallop: process.env.GALLOP_KEY
-      , nftbank: process.env.NFTBANK_KEY
-      , zash: process.env.ZASH_KEY
-      , hellomoon: process.env.HELLOMOON_KEY
-    },
-    fungibleTokens: {
-      coingecko: process.env.COINGECKO_KEY
     }
   }
 };
@@ -60,55 +48,16 @@ Kaleidoscope provides a number of methods to interact with the providers. See [`
 
 Here is a summary of the methods available:
 ```typescript
-// Get available chains
-const chains: string[] = await kaleidoscope.getChains();
 
-// Get available consensus methods
-const consensusMethods: string[] = await kaleidoscope.getConsensusMethods();
-
-// Get available providers
-const providers: string[] = await kaleidoscope.getProviders();
-
-// Get available currencies
-const currencies: string[] = await kaleidoscope.getCurrencies();
-
-// Get available metrics
-const metrics: string[] = await kaleidoscope.getMetrics();
-
-// Get available timeframes
-const timeframes: string[] = await kaleidoscope.getTimeframes();
-
-// Get the value from a config object
-const value: bigint = await kaleidoscope.getValueFromConfig({
-    collection: "0x4b15a9...",                  // required
-    chain: chains.ETHEREUM,                     // optional, ETHEREUM is the default
-    metric: metrics.FLOOR_PRICE,                // optional, FLOOR_PRICE is the default
-    consensusMethod: consensusMethods.MEDIAN,   // optional, MEDIAN is the default
-    currency: currencies.NATIVE,                // optional, NATIVE is the default
-    providers: [providers.ALL]                  // optional, ALL is the default
+const floorInfo: bigint = await kaleidoscope.nftCollection.getFloor({
+    address: '0x4b15a9c28034dC83db40CD810001427d3BD7163D',
 });
+console.log(floorInfo);
 
-// Sets the global configs and get the value
-const floor: bigint = await kaleidoscope
-    .setChain(chains.POLYGON)                       // optional, ETHEREUM is the default
-    .setMetric(metrics.MARKET_CAP)                  // optional, FLOOR_PRICE is the default
-    .setConsensusMethod(consensusMethods.AVERAGE)   // optional, MEDIAN is the default    
-    .setCurrency(currencies.USD)                    // optional, NATIVE is the default
-    .setProviders([providers.NFT_GO])               // optional, ALL is the default
-    .getValue('0x1234...');                         // required
-
-// Return the current config settings
-const configSettings: any = await kaleidoscope.getSettings();
-
-const candles: any[] = await kaleidoscope.getCandles({
-    collection: "0x4b15a9...",                  // required
-    chain: chains.ETHEREUM,                     // optional, ETHEREUM is the default
-    metric: metrics.FLOOR_PRICE,                // optional, FLOOR_PRICE is the default
-    consensusMethod: consensusMethods.MEDIAN,   // optional, MEDIAN is the default
-    currenecy: currencies.NATIVE,               // optional, NATIVE is the default
-    providers: [providers.ALL]                  // optional, ALL is the default
-    timeframe: timeframes.ONE_DAY,              // optional, ONE_DAY is the default
-});
+// {
+//   currencyInfo: { symbol: 'ETH', name: 'Ethereum', decimals: 18 },
+//   amount: { atomic: 510000000000000000n, decimal: 0.51 }
+// }
 ```
 
 ## For Contributors
@@ -127,29 +76,30 @@ This builds to `/dist` and runs the project in watch mode so any edits you save 
 
 
 ## MVP Roadmap
-- [ ] support Chain: ethereum NFTs
-- [ ] support Provider: DIA
+- [x] support Chain: ethereum NFTs
+- [x] support Currency: ETH
+- [x] support Metric: Floor Price
+- [x] support Consensus Filter: None
+- [x] support Consensus Method: Median
+- [x] support Provider: DIA
+- [ ] support Retry straetgy with exponential backoff
 - [ ] support Provider: NFTBank
 - [ ] support Provider: Reservoir
 - [ ] support Provider: CoinGecko
-- [ ] support Metric: Floor Price
-- [ ] support Currency: ETH
-- [ ] support Consensus Method: Median
-- [ ] support getCandles() method, 1d timeframe
 
 ## Backlog
+- [ ] support getCandles() method, 1d timeframe
 - [ ] support Chain: polygon NFTs
 - [ ] support Chain: solana NFTs
 - [ ] support Currency: MATIC
 - [ ] support Currency: SOL
-
 - [ ] support Provider: HelloMoon
 - [ ] support Provider: Center
 - [ ] support Provider: Zash
 - [ ] support Provider: NFTGo
 - [ ] support Provider: Nefertiti
 - [ ] support Provider: Gallop
-
 - [ ] support Currency: USD
 - [ ] support Metric: Market Cap
-- [ ] support Consensus Method: MAD_Mean
+- [ ] support Consensus Filter: Mean Absolute Deviation
+- [ ] support getPrice for fungible tokens

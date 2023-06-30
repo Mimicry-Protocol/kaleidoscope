@@ -1,5 +1,5 @@
 import { Decimal } from 'decimal.js';
-import { Chain, ConsensusFilter, ConsensusMethod, Currency } from './enums';
+import { Chain, ConsensusFilter, ConsensusMethod, CurrencySymbol } from './enums';
 
 export type Amount = {
   atomic: bigint; // e.g. 26476561042796000000000
@@ -17,9 +17,9 @@ export type ConsensusMechanism = {
 };
 
 export type CurrencyInfo = {
-  symbol: Currency;
+  symbol: CurrencySymbol;
   name: string;
-  decimals: bigint;
+  decimals: number;
 };
 
 export type ContractPointer = {
@@ -33,6 +33,6 @@ export type ThrottleConfig = {
 };
 
 export type Value = {
-  currency: CurrencyInfo;
+  currencyInfo: CurrencyInfo;
   amount: Amount;
 };

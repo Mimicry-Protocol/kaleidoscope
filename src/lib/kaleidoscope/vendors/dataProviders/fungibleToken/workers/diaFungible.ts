@@ -1,4 +1,4 @@
-import { ContractPointer } from '../../../../../types';
+import { ContractPointer, Value } from '../../../../../types';
 import { RestfulProvider } from '../../RestfulProvider';
 import { FungibleDataProvider } from '../FungibleDataProvider';
 
@@ -9,7 +9,7 @@ export class DiaFungible extends RestfulProvider
     super(_apiKey, apiHost);
   }
 
-  async getPrice(_contracts: ContractPointer): Promise<bigint> {
+  async getPrice(_contracts: ContractPointer): Promise<Value> {
     throw new Error('Method not implemented: getPrice()');
   }
 }

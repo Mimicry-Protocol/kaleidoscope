@@ -1,9 +1,9 @@
 // import ky from 'ky';
-import { Chain } from '../../../../../enums';
-import { ContractPointer } from '../../../../../types';
-import { numberToBigInt } from '../../../../../utils/numberToBigInt';
+import { Chain, CurrencySymbol } from '../../../../../enums';
+import { ContractPointer, Value } from '../../../../../types';
 import { RestfulProvider } from '../../RestfulProvider';
 import { NftCollectionDataProvider } from '../NftCollectionDataProvider';
+import { numberToValue } from '../../../../../utils/numberToValue';
 
 // Docs: https://docs.diadata.org/documentation/api-1/nft-data-api-endpoints
 
@@ -15,7 +15,7 @@ export class DiaNonFungible extends RestfulProvider
   }
 
   // https://api.diadata.org/v1/NFTFloor/:blockchain/:address
-  async getFloor(_contract: ContractPointer): Promise<bigint> {
+  async getFloor(_contract: ContractPointer): Promise<Value> {
     const host = this.getApiHost();
     const chain = this.getBlockchain(_contract.chain);
     const uri = `${host}NFTFloor/${chain}/${_contract.address}`;
@@ -26,8 +26,10 @@ export class DiaNonFungible extends RestfulProvider
     // @TODO: Add support for a library with retry logic.
     // const json: any = await ky.get(uri, this.getKyConfig()).json();
 
-    const floor = json.Floor_Price;
-    return numberToBigInt(Number(floor), 18);
+    // DIA currently only supports ETH.
+    const currencyInfo = this.getCurrencyInfo(CurrencySymbol.ETH);
+    
+    return numberToValue(Number(json.Floor_Price), currencyInfo);
   }
 
   getBlockchain(_chain?: Chain): string {

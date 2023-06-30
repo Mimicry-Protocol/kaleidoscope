@@ -1,5 +1,5 @@
-import { Chain } from '../../../enums';
-import { ApiConfig, ThrottleConfig } from '../../../types';
+import { Chain, CurrencySymbol } from '../../../enums';
+import { ApiConfig, CurrencyInfo, ThrottleConfig } from '../../../types';
 
 export class RestfulProvider {
   private _config: ApiConfig;
@@ -25,6 +25,25 @@ export class RestfulProvider {
 
   getBlockchain(_chain: Chain): string {
     throw new Error('Method not implemented: getBlockchain()');
+  }
+
+  getCurrencyInfo(_symbol: CurrencySymbol): CurrencyInfo {
+    switch (_symbol) {
+      case CurrencySymbol.ETH:
+        return {
+          symbol: CurrencySymbol.ETH,
+          name: 'Ethereum',
+          decimals: 18,
+        };
+      case CurrencySymbol.USD:
+        return {
+          symbol: CurrencySymbol.USD,
+          name: 'United States Dollar',
+          decimals: 8,
+        };
+      default:
+        throw new Error(`${_symbol} is not a valid CurrencySymbol.`);
+    }
   }
 
   getKyConfig(): any {

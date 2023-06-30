@@ -9,7 +9,7 @@ export enum Metric {
   // MARKET_CAP,
 }
 
-export enum Currency {
+export enum CurrencySymbol {
   ETH = 'ETH',
   USD = 'USD',
   // MATIC,
