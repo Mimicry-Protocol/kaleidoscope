@@ -8,6 +8,8 @@ import { Value } from '../../types';
 export function median(values: Value[]): Value {
   if (values.length === 0) {
     throw new Error('Cannot calculate median of empty array');
+  } else if (values.length === 1) {
+    return values[0];
   }
 
   // sort values by their decimal amount
