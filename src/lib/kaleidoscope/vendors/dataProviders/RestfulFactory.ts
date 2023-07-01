@@ -68,13 +68,20 @@ export class RestfulFactory {
     const sources: any[] = [];
 
     for (const _provider of _dataProviders) {
-      const value: Value = await _provider[_method](_contract);
-      values.push(value);
+      // Providers with methods not implemented will be skipped.
+      try {
+        const value: Value = await _provider[_method](_contract);
+        values.push(value);
 
-      sources.push({
-        source: _provider.getName(),
-        value: value.amount,
-      });
+        sources.push({
+          source: _provider.getName(),
+          value: value.amount,
+        });
+      } catch (error) {
+        if (__DEV__) {
+          console.log(error);
+        }
+      }
     }
 
     const finalValue = this.applyConsensusMechanism(values, _consensusMechanism);
