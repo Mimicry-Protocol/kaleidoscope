@@ -6,16 +6,16 @@ import { median, random } from '../../../utils/consensusMethods';
 export class RestfulFactory {
   private _verbose: boolean = false;
 
-  constructor(_config: any) {
+  constructor(_globalConfig: any) {
     if (__DEV__) {
       console.log(`${this.getName()} Constructor`);
     }
 
-    if (_config.verbose) {
-      this._verbose = _config.verbose;
+    if (_globalConfig.verbose) {
+      this._verbose = _globalConfig.verbose;
     }
 
-    if (!_config.dataProviders) {
+    if (!_globalConfig.dataProviders) {
       throw new Error('No providers specified.');
     }
   }

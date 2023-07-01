@@ -9,21 +9,21 @@ import { Reservoir } from './workers/Reservoir';
 export class NftCollectionFactory extends RestfulFactory {
   private _dataProviders: NftCollectionDataProvider[] = [];
 
-  constructor(_config: any) {
-    super(_config);
-    this.initProviders(_config.dataProviders.nonFungibleTokens);
+  constructor(_globalConfig: any) {
+    super(_globalConfig);
+    this.initProviders(_globalConfig.dataProviders.nonFungibleTokens);
   }
 
-  addDataProvider(_providerName: string, _apiKey: string) {
+  addDataProvider(_providerName: string, _providerConfig: any) {
     switch (_providerName) {
       case 'dia':
-        this._dataProviders.push(new DiaNonFungible(_apiKey));
+        this._dataProviders.push(new DiaNonFungible(_providerConfig));
         break;
       case 'nftBank':
-        this._dataProviders.push(new NftBank(_apiKey));
+        this._dataProviders.push(new NftBank(_providerConfig));
         break;
       case 'reservoir':
-        this._dataProviders.push(new Reservoir(_apiKey));
+        this._dataProviders.push(new Reservoir(_providerConfig));
         break;
       default:
         throw new Error(

@@ -8,9 +8,9 @@ import { numberToValue } from '../../../../../utils/numberToValue';
 
 export class DiaNonFungible extends RestfulProvider
   implements NftCollectionDataProvider {
-  constructor(_apiKey: string) {
+  constructor(_config: any) {
     const apiHost = 'https://api.diadata.org/v1/';
-    super(_apiKey, apiHost);
+    super(_config, apiHost);
   }
 
   // https://api.diadata.org/v1/NFTFloor/:blockchain/:address

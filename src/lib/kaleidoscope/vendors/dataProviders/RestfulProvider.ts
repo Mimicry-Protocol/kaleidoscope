@@ -5,13 +5,18 @@ import { ApiConfig, CurrencyInfo, ThrottleConfig } from '../../../types';
 export class RestfulProvider {
   private _config: ApiConfig;
 
-  constructor(_apiKey: string, _apiHost: string) {
+  constructor(_providerConfig: any, _apiHost: string) {
     if (__DEV__) {
       console.log(`${this.getName()} Constructor using ${_apiHost}`);
     }
 
+    // Futureproofing for when providers have custom configs
+    const apiKey = (typeof _providerConfig === 'string')
+      ? _providerConfig
+      : _providerConfig.apiKey;
+
     this._config = {
-      key: _apiKey,
+      key: apiKey,
       host: _apiHost,
     };
   }
@@ -21,8 +26,20 @@ export class RestfulProvider {
       ..._options,
       ...{
         retry: {
-          limit: 5,
-          backoffLimit: 10
+          limit: 10,
+          backoffLimit: 10_000,
+          calculateDelay: ({
+            attemptCount,
+            computedValue, 
+            error
+          }: any) => {
+            if (__DEV__) {
+              console.log(`Retrying ${_uri} (${attemptCount} of 10) 
+                in ${computedValue / 5 / 1000} seconds 
+                due to ${error}`);
+            }
+            return computedValue / 5;
+          }
         }
       }
     };

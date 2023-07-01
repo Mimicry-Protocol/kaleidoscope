@@ -8,9 +8,9 @@ import { numberToValue } from '../../../../../utils/numberToValue';
 
 export class NftBank extends RestfulProvider
   implements NftCollectionDataProvider {
-  constructor(_apiKey: string) {
+  constructor(_config: any) {
     const apiHost = 'https://api.nftbank.run/v1/';
-    super(_apiKey, apiHost);
+    super(_config, apiHost);
   }
 
   // @see https://developer.nftbank.ai/reference/floor_price_v1_collection__assetcontract__floor_get

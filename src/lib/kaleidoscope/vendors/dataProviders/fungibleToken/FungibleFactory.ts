@@ -7,15 +7,15 @@ import { DiaFungible } from './workers/DiaFungible';
 export class FungibleFactory extends RestfulFactory {
   private _dataProviders: FungibleDataProvider[] = [];
 
-  constructor(_config: any) {
-    super(_config);
-    this.initProviders(_config.dataProviders.fungibleTokens);
+  constructor(_globalConfig: any) {
+    super(_globalConfig);
+    this.initProviders(_globalConfig.dataProviders.fungibleTokens);
   }
 
-  addDataProvider(_providerName: string, _apiKey: string) {
+  addDataProvider(_providerName: string, _providerConfig: any) {
     switch (_providerName) {
       case 'dia':
-        this._dataProviders.push(new DiaFungible(_apiKey));
+        this._dataProviders.push(new DiaFungible(_providerConfig));
         break;
       default:
         throw new Error(

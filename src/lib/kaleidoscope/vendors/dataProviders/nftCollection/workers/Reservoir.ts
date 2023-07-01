@@ -7,9 +7,9 @@ import { numberToValue } from '../../../../../utils/numberToValue';
 
 export class Reservoir extends RestfulProvider
   implements NftCollectionDataProvider {
-  constructor(_apiKey: string) {
+  constructor(_config: any) {
     const apiHost = 'https://api.reservoir.tools/';
-    super(_apiKey, apiHost);
+    super(_config, apiHost);
   }
 
   // @see https://docs.reservoir.tools/reference/getstatsv2

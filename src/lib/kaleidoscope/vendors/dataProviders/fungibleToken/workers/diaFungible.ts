@@ -4,9 +4,9 @@ import { FungibleDataProvider } from '../FungibleDataProvider';
 
 export class DiaFungible extends RestfulProvider
   implements FungibleDataProvider {
-  constructor(_apiKey: string) {
+  constructor(_config: any) {
     const apiHost = 'https://api.diadata.org/v1/';
-    super(_apiKey, apiHost);
+    super(_config, apiHost);
   }
 
   async getPrice(_contracts: ContractPointer): Promise<Value> {
