@@ -69,6 +69,10 @@ export class RestfulFactory {
 
     for (const _provider of _dataProviders) {
       // Providers with methods not implemented will be skipped.
+      // Providers who's apis are down will be skipped.
+      // Providers who's apis are throttled will be skipped.
+      // Providers who's apis return invalid data will be skipped.
+      // Providers who's apis return data that is not in the expected format will be skipped.
       try {
         const value: Value = await _provider[_method](_contract);
         values.push(value);
@@ -79,7 +83,7 @@ export class RestfulFactory {
         });
       } catch (error) {
         if (__DEV__) {
-          console.log(error);
+          console.error(error);
         }
       }
     }
