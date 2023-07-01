@@ -24,6 +24,47 @@ export class RestfulFactory {
     return this.constructor.name;
   }
 
+  async runFactory(
+    _dataProviders: any,
+    _method: string,
+    _contract: ContractPointer,
+    _verbose?: boolean,
+    _consensusMechanism?: ConsensusMechanism,
+  ): Promise<any> {
+    const values: Value[] = [];
+    const sources: any[] = [];
+
+    for (const _provider of _dataProviders) {
+      try {
+        const value: Value = await _provider[_method](_contract);
+        values.push(value);
+
+        sources.push({
+          source: _provider.getName(),
+          value: value.amount,
+        });
+      } catch (error) {
+        // Skips Providers with methods not implemented.
+        // Skips Providers who's apis are down, throttled, or returning invalid data.
+        if (__DEV__) {
+          console.error(error);
+        }
+      }
+    }
+
+    const finalValue = this.applyConsensusMechanism(values, _consensusMechanism);
+    
+    const verboseOutput = {
+      method: _method,
+      timestamp: new Date().toISOString(),
+      currencyInfo: finalValue.currencyInfo,
+      value: finalValue.amount,
+      sources: sources,
+    };
+    
+    return (this._verbose) ? verboseOutput : finalValue;
+  }
+
   protected addDataProvider(_providerName: string, _apiKey: string) {
     throw new Error('Method not implemented: addDataProvider()');
   }
@@ -55,50 +96,6 @@ export class RestfulFactory {
     for (const [_providerName, _apiKey] of Object.entries(_providers)) {
       this.addDataProvider(_providerName, String(_apiKey));
     }
-  }
-
-  protected async runFactory(
-    _dataProviders: any,
-    _method: string,
-    _contract: ContractPointer,
-    _verbose?: boolean,
-    _consensusMechanism?: ConsensusMechanism,
-  ): Promise<any> {
-    const values: Value[] = [];
-    const sources: any[] = [];
-
-    for (const _provider of _dataProviders) {
-      // Providers with methods not implemented will be skipped.
-      // Providers who's apis are down will be skipped.
-      // Providers who's apis are throttled will be skipped.
-      // Providers who's apis return invalid data will be skipped.
-      // Providers who's apis return data that is not in the expected format will be skipped.
-      try {
-        const value: Value = await _provider[_method](_contract);
-        values.push(value);
-
-        sources.push({
-          source: _provider.getName(),
-          value: value.amount,
-        });
-      } catch (error) {
-        if (__DEV__) {
-          console.error(error);
-        }
-      }
-    }
-
-    const finalValue = this.applyConsensusMechanism(values, _consensusMechanism);
-    
-    const verboseOutput = {
-      method: _method,
-      timestamp: new Date().toISOString(),
-      currencyInfo: finalValue.currencyInfo,
-      value: finalValue.amount,
-      sources: sources,
-    };
-    
-    return (this._verbose) ? verboseOutput : finalValue;
   }
 
   private _applyConsensusFilter(
