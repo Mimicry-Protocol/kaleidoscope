@@ -1,3 +1,4 @@
+import { ConsensusFilter, ConsensusMethod } from '../../../../enums';
 import { ConsensusMechanism, ContractPointer, Value } from '../../../../types';
 import { RestfulFactory } from '../RestfulFactory';
 import { NftCollectionDataProvider } from './NftCollectionDataProvider';
@@ -57,13 +58,16 @@ export class NftCollectionFactory extends RestfulFactory {
   }
 
   async getMetadata(
-    _contract: ContractPointer,
-    _consensusMechanism?: ConsensusMechanism
+    _contract: ContractPointer
   ): Promise<any> {
     return this.runFactory(
       this._dataProviders,
       'getMetadata',
-      _contract
+      _contract,
+      {
+        filter: ConsensusFilter.NONE,
+        method: ConsensusMethod.RANDOM
+      }
     );
   }
 }

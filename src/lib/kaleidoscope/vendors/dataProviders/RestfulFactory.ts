@@ -28,7 +28,6 @@ export class RestfulFactory {
     _dataProviders: any,
     _method: string,
     _contract: ContractPointer,
-    _verbose?: boolean,
     _consensusMechanism?: ConsensusMechanism,
   ): Promise<any> {
     const values: Value[] = [];

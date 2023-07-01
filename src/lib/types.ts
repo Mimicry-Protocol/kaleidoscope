@@ -41,3 +41,51 @@ export type Value = {
   currencyInfo: CurrencyInfo;
   amount: Amount;
 };
+
+export type NFTCollectionMetadata = {
+  contract: ContractPointer;
+  name: string;
+  description: string;
+  createdAt?: string;
+  openseaVerificationStatus?: boolean;
+  openseaSlug?: string;
+  collectionSize: number;
+  onSaleCount: number;
+  ownerCount: number;
+  contractType?: string;
+  images: {
+    thumbnail: string;
+    banner?: string;
+    samples?: string[];
+  }
+  urls: { 
+    explorer: string;
+    website?: string;
+    discord?: string;
+    twitter?: string;
+  };
+  stats: {
+    currencyInfo: CurrencyInfo;
+    marketCap?: Amount;
+    floor?: {
+      h24?: Amount;
+      h24Change?: Decimal;
+      d7?: Amount;
+      d7Change?: Decimal;
+      d30?: Amount;
+      d30Change?: Decimal;
+      y1?: Amount;
+      y1Change?: Decimal;
+    }
+    volume?: {
+      h24?: Amount;
+      h24Change?: Decimal;
+      d7?: Amount;
+      d7Change?: Decimal;
+      d30?: Amount;
+      d30Change?: Decimal;
+      y1?: Amount;
+      y1Change?: Decimal;
+    }
+  }
+};
