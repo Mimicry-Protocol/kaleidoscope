@@ -55,4 +55,15 @@ export class NftCollectionFactory extends RestfulFactory {
       _contract
     );
   }
+
+  async getMetadata(
+    _contract: ContractPointer,
+    _consensusMechanism?: ConsensusMechanism
+  ): Promise<any> {
+    return this.runFactory(
+      this._dataProviders,
+      'getMetadata',
+      _contract
+    );
+  }
 }

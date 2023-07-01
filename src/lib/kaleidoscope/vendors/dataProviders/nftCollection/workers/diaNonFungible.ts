@@ -24,6 +24,10 @@ export class DiaNonFungible extends RestfulProvider
     return numberToValue(Number(json.Floor_Price), currencyInfo);
   }
 
+  async getMetadata(_contract: ContractPointer): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
+
   getBlockchain(_chain?: Chain): string {
     switch (_chain) {
       case undefined:

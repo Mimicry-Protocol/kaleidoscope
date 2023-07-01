@@ -35,6 +35,10 @@ export class NftBank extends RestfulProvider
     return numberToValue(Number(json.data.floor.eth), currencyInfo);
   }
 
+  async getMetadata(_contract: ContractPointer): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
+
   getBlockchain(_chain?: Chain): string {
     switch (_chain) {
       case undefined:
