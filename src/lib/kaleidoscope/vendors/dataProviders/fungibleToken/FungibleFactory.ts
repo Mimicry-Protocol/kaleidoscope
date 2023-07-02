@@ -5,7 +5,9 @@ import { DiaFungible } from './workers/DiaFungible';
 
 // @ts-ignore
 export class FungibleFactory extends RestfulFactory {
-  private _dataProviders: FungibleDataProvider[] = [];
+  private _dataProviders: { 
+    [key: string]: FungibleDataProvider 
+  } = {};
 
   constructor(_globalConfig: any) {
     super(_globalConfig);
@@ -15,7 +17,7 @@ export class FungibleFactory extends RestfulFactory {
   addDataProvider(_providerName: string, _providerConfig: any) {
     switch (_providerName) {
       case 'dia':
-        this._dataProviders.push(new DiaFungible(_providerConfig));
+        this._dataProviders[_providerName] = new DiaFungible(_providerConfig);
         break;
       default:
         throw new Error(
@@ -26,11 +28,12 @@ export class FungibleFactory extends RestfulFactory {
 
   async getPrices(
     _contracts: ContractPointer[],
-    _consensusMechanism?: ConsensusMechanism
+    _consensusMechanism?: ConsensusMechanism,
+    _providerName?: string
   ): Promise<Value[]> {
     const values: Value[] = [];
     for (const _contract of _contracts) {
-      const value = await this.getPrice(_contract, _consensusMechanism);
+      const value = await this.getPrice(_contract, _consensusMechanism, _providerName);
       values.push(value);
     }
 
@@ -39,15 +42,15 @@ export class FungibleFactory extends RestfulFactory {
 
   async getPrice(
     _contract: ContractPointer,
-    _consensusMechanism?: ConsensusMechanism
-  ): Promise<Value> {
-    const values: Value[] = [];
-    for (const _provider of this._dataProviders) {
-      const value = await _provider.getPrice(_contract);
-      values.push(value);
-    }
-
-    const value = this.applyConsensusMechanism(values, _consensusMechanism);
-    return value;
+    _consensusMechanism?: ConsensusMechanism,
+    _providerName?: string
+  ): Promise<any> {
+    const providers = this.getCorrectProviders(this._dataProviders, _providerName);
+    return this.runFactory(
+      providers,
+      'getPrice',
+      _contract,
+      _consensusMechanism
+    );
   }
 }

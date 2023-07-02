@@ -1,4 +1,3 @@
-import { ConsensusFilter, ConsensusMethod } from '../../../../enums';
 import { ConsensusMechanism, ContractPointer, Value } from '../../../../types';
 import { RestfulFactory } from '../RestfulFactory';
 import { NftCollectionDataProvider } from './NftCollectionDataProvider';
@@ -10,29 +9,31 @@ import { Reservoir } from './workers/Reservoir';
 
 // @ts-ignore
 export class NftCollectionFactory extends RestfulFactory {
-  private _dataProviders: NftCollectionDataProvider[] = [];
+  private _dataProviders: { 
+    [key: string]: NftCollectionDataProvider 
+  } = {};
 
   constructor(_globalConfig: any) {
     super(_globalConfig);
-    this.initProviders(_globalConfig.dataProviders.nonFungibleTokens);
+    this.initProviders(_globalConfig.dataProviders.nfts);
   }
 
   addDataProvider(_providerName: string, _providerConfig: any) {
     switch (_providerName) {
       case 'dia':
-        this._dataProviders.push(new DiaNonFungible(_providerConfig));
+        this._dataProviders[_providerName] = new DiaNonFungible(_providerConfig);
         break;
       case 'nftBank':
-        this._dataProviders.push(new NftBank(_providerConfig));
+        this._dataProviders[_providerName] = new NftBank(_providerConfig);
         break;
       case 'reservoir':
-        this._dataProviders.push(new Reservoir(_providerConfig));
+        this._dataProviders[_providerName] = new Reservoir(_providerConfig);
         break;
       case 'coinGecko':
-        this._dataProviders.push(new CoinGeckoNonFungible(_providerConfig));
+        this._dataProviders[_providerName] = new CoinGeckoNonFungible(_providerConfig);
         break;
       case 'coinGeckoPro':
-        this._dataProviders.push(new CoinGeckoProNonFungible(_providerConfig));
+        this._dataProviders[_providerName] = new CoinGeckoProNonFungible(_providerConfig);
         break;
       default:
         throw new Error(
@@ -43,11 +44,12 @@ export class NftCollectionFactory extends RestfulFactory {
 
   async getFloors(
     _contracts: ContractPointer[],
-    _consensusMechanism?: ConsensusMechanism
+    _consensusMechanism?: ConsensusMechanism,
+    _providerName?: string
   ): Promise<Value[]> {
     const values: Value[] = [];
     for (const _contract of _contracts) {
-      const value = await this.getFloor(_contract, _consensusMechanism);
+      const value = await this.getFloor(_contract, _consensusMechanism, _providerName);
       values.push(value);
     }
 
@@ -56,26 +58,27 @@ export class NftCollectionFactory extends RestfulFactory {
 
   async getFloor(
     _contract: ContractPointer,
-    _consensusMechanism?: ConsensusMechanism
+    _consensusMechanism?: ConsensusMechanism,
+    _providerName?: string
   ): Promise<any> {
+    const providers = this.getCorrectProviders(this._dataProviders, _providerName);
     return this.runFactory(
-      this._dataProviders,
+      providers,
       'getFloor',
-      _contract
+      _contract,
+      _consensusMechanism
     );
   }
 
   async getMetadata(
-    _contract: ContractPointer
+    _contract: ContractPointer,
+    _providerName?: string
   ): Promise<any> {
+    const providers = this.getCorrectProviders(this._dataProviders, _providerName);
     return this.runFactory(
-      this._dataProviders,
+      providers,
       'getMetadata',
-      _contract,
-      {
-        filter: ConsensusFilter.NONE,
-        method: ConsensusMethod.RANDOM
-      }
+      _contract
     );
   }
 }

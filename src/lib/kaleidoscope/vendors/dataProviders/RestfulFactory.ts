@@ -1,5 +1,5 @@
 import { Chain, ConsensusFilter, ConsensusMethod } from '../../../enums';
-import { ConsensusMechanism, ContractPointer, Value } from '../../../types';
+import { ConsensusMechanism, ContractPointer, DataProviders, Value } from '../../../types';
 import { none, mad } from '../../../utils/consensusFilters';
 import { median, random } from '../../../utils/consensusMethods';
 
@@ -25,7 +25,7 @@ export class RestfulFactory {
   }
 
   async runFactory(
-    _dataProviders: any,
+    _dataProviders: DataProviders,
     _method: string,
     _contract: ContractPointer,
     _consensusMechanism?: ConsensusMechanism,
@@ -33,7 +33,8 @@ export class RestfulFactory {
     const values: Value[] = [];
     const sources: any[] = [];
 
-    for (const _provider of _dataProviders) {
+    for (const key in _dataProviders) {
+      const _provider = _dataProviders[key];
       try {
         const value: Value = await _provider[_method](_contract);
         values.push(value);
@@ -59,15 +60,23 @@ export class RestfulFactory {
     if (values.length === 0) {
       throw new Error('No valid values returned from providers.');
     }
-    const finalValue = this.applyConsensusMechanism(values, _consensusMechanism);
-    
-    const verboseOutput = {
+
+    let finalValue;
+    let verboseOutput: any = {
       method: _method,
       timestamp: new Date().toISOString(),
-      currencyInfo: finalValue.currencyInfo,
-      value: finalValue.amount,
-      sources: sources,
     };
+
+    if (values.length === 1) {
+      finalValue = values[0];
+      verboseOutput['data'] = finalValue;
+      verboseOutput['source'] = sources[0].source;
+    } else {
+      finalValue = this.applyConsensusMechanism(values, _consensusMechanism);
+      verboseOutput['currencyInfo'] = finalValue.currencyInfo;
+      verboseOutput['data'] = finalValue.amount;
+      verboseOutput['sources'] = sources;
+    }
     
     return (this._verbose) ? verboseOutput : finalValue;
   }
@@ -97,6 +106,19 @@ export class RestfulFactory {
 
   protected getBlockchain(_chain: Chain): string {
     throw new Error('Method not implemented: addDataProvider()');
+  }
+
+  protected getCorrectProviders(
+    _dataProviders: DataProviders,
+    _providerName?: string
+  ): DataProviders {
+    let dataProviders = _dataProviders;
+    if (_providerName) {
+      dataProviders = {
+        [_providerName]: _dataProviders[_providerName]
+      };
+    }
+    return dataProviders;
   }
 
   protected initProviders(_providers: any) {

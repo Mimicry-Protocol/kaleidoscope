@@ -32,6 +32,10 @@ export type ContractPointer = {
   address: string;
 };
 
+export type DataProviders = {
+  [key: string]: any;
+}
+
 export type ThrottleConfig = {
   limit: number; // number of requests allowed per interval
   interval: number; // in milliseconds

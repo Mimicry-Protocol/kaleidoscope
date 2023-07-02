@@ -15,7 +15,7 @@ export class Kaleidoscope {
     }
 
     // Setup NFT Collection Data Providers
-    if (_config.dataProviders.nonFungibleTokens) {
+    if (_config.dataProviders.nfts) {
       this.nftCollection = new NftCollectionFactory(_config);
     }
 

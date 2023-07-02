@@ -8,7 +8,7 @@ import 'dotenv/config';
                 // fungibleTokens: {
                 //     dia: process.env.DIA_KEY
                 // },
-                nonFungibleTokens: {
+                nfts: {
                     dia: true,
                     nftBank: process.env.NFTBANK_KEY,
                     reservoir: process.env.RESERVOIR_KEY,
@@ -32,7 +32,7 @@ import 'dotenv/config';
         //     chain: 'ethereum',
         // });
         console.log(hvMtlFloor);
-        console.log(hvMtlFloor.sources);
+        // console.log(hvMtlFloor.sources);
     } catch (error) {
         console.error(error.message);
     }    
