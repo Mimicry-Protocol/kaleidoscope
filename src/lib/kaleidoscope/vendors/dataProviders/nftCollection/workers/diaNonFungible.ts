@@ -34,7 +34,7 @@ export class DiaNonFungible extends RestfulProvider
       case Chain.ETHEREUM:
         return 'Ethereum';
       default:
-        throw new Error(`${_chain} is not a valid chain.`);
+        throw new Error(`${_chain} is not supported by ${this.getName()}.`);
     }
   }
 

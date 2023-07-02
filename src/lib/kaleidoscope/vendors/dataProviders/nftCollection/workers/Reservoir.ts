@@ -2,7 +2,7 @@ import { ContractPointer, NFTCollectionMetadata, Value } from '../../../../../ty
 import { RestfulProvider } from '../../RestfulProvider';
 import { NftCollectionDataProvider } from '../NftCollectionDataProvider';
 import { numberToValue } from '../../../../../utils/numberToValue';
-import { chainToBlockchainExplorerHost } from '../../../../../utils/chainToBlockchainExplorerHost';
+import { chainToBlockchainExplorerHost } from '../../../../../utils/crossChainSupport/chainToBlockchainExplorerHost';
 import { Chain } from '../../../../../enums';
 
 // Docs: https://docs.reservoir.tools/
@@ -123,7 +123,7 @@ export class Reservoir extends RestfulProvider
       case Chain.OPTIMISM:
         return 'https://api-optimism.reservoir.tools/';
       default:
-        throw new Error(`${_chain} is not a valid chain.`);
+        throw new Error(`${_chain} is not supported by ${this.getName()}.`);
     }
   }
 

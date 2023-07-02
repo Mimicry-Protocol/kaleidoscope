@@ -47,7 +47,7 @@ export class NftBank extends RestfulProvider
       case Chain.ETHEREUM:
         return 'ethereum';
       default:
-        throw new Error(`${_chain} is not a valid chain.`);
+        throw new Error(`${_chain} is not supported by ${this.getName()}.`);
     }
   }
 
