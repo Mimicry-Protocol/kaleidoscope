@@ -46,11 +46,19 @@ export class RestfulFactory {
         // Skips Providers with methods not implemented.
         // Skips Providers who's apis are down, throttled, or returning invalid data.
         if (__DEV__) {
-          console.error(error);
+          console.error({
+            provider: _provider.getName(),
+            method: _method,
+            // @ts-ignore
+            error: error.message
+          });
         }
       }
     }
 
+    if (values.length === 0) {
+      throw new Error('No valid values returned from providers.');
+    }
     const finalValue = this.applyConsensusMechanism(values, _consensusMechanism);
     
     const verboseOutput = {
