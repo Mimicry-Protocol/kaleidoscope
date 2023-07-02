@@ -72,7 +72,7 @@ export class NftCollectionFactory extends RestfulFactory {
 
   async getMetadata(
     _contract: ContractPointer,
-    _providerName?: string
+    _providerName: string
   ): Promise<any> {
     const providers = this.getCorrectProviders(this._dataProviders, _providerName);
     return this.runFactory(
