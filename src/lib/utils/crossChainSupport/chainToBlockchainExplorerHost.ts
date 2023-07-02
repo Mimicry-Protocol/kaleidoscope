@@ -1,4 +1,4 @@
-import { Chain } from '../enums';
+import { Chain } from '../../enums';
 
 /**
  * Given a chain, return the blockchain explorer's host URI.
