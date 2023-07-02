@@ -5,8 +5,8 @@ import { DiaFungible } from './workers/DiaFungible';
 
 // @ts-ignore
 export class FungibleFactory extends RestfulFactory {
-  private _dataProviders: { 
-    [key: string]: FungibleDataProvider 
+  private _dataProviders: {
+    [key: string]: FungibleDataProvider;
   } = {};
 
   constructor(_globalConfig: any) {
@@ -33,7 +33,11 @@ export class FungibleFactory extends RestfulFactory {
   ): Promise<Value[]> {
     const values: Value[] = [];
     for (const _contract of _contracts) {
-      const value = await this.getPrice(_contract, _consensusMechanism, _providerName);
+      const value = await this.getPrice(
+        _contract,
+        _consensusMechanism,
+        _providerName
+      );
       values.push(value);
     }
 
@@ -45,7 +49,10 @@ export class FungibleFactory extends RestfulFactory {
     _consensusMechanism?: ConsensusMechanism,
     _providerName?: string
   ): Promise<any> {
-    const providers = this.getCorrectProviders(this._dataProviders, _providerName);
+    const providers = this.getCorrectProviders(
+      this._dataProviders,
+      _providerName
+    );
     return this.runFactory(
       providers,
       'getPrice',

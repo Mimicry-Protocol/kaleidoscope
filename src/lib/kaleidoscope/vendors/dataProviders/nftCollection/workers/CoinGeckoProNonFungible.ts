@@ -9,7 +9,6 @@ import { numberToValue } from '../../../../../utils/numberToValue';
 
 export class CoinGeckoProNonFungible extends RestfulProvider
   implements NftCollectionDataProvider {
-
   constructor(_config: any) {
     const apiHost = 'https://pro-api.coingecko.com/api/v3/';
     super(_config, apiHost);
@@ -22,7 +21,7 @@ export class CoinGeckoProNonFungible extends RestfulProvider
     const uri = `${host}nfts/${chain}/contract/${_contract.address}/market_chart`;
     const options = {
       searchParams: {
-        days: 14
+        days: 14,
       },
       headers: {
         Accept: 'application/json',
@@ -34,11 +33,10 @@ export class CoinGeckoProNonFungible extends RestfulProvider
     const currencyInfo = this.getCurrencyInfoFromChain(_contract.chain);
     let combinedResponse = {
       ...currencyInfo,
-      ...json
+      ...json,
     };
     return combinedResponse;
   }
-
 
   // {host}/nfts/{chain}/contract/{contract_address}
   async getFloor(_contract: ContractPointer): Promise<Value> {
@@ -54,7 +52,10 @@ export class CoinGeckoProNonFungible extends RestfulProvider
 
     const json: any = await this.gotJson(uri, options);
     const currencyInfo = this.getCurrencyInfoFromChain(_contract.chain);
-    return numberToValue(Number(json.floor_price.native_currency), currencyInfo);
+    return numberToValue(
+      Number(json.floor_price.native_currency),
+      currencyInfo
+    );
   }
 
   async getMetadata(_contract: ContractPointer): Promise<any> {
@@ -73,7 +74,9 @@ export class CoinGeckoProNonFungible extends RestfulProvider
       case Chain.ARBITRUM:
         return 'arbitrum-one';
       case Chain.SOLANA:
-        throw new Error('Solana is supported by CoinGecko, but not yet implemented.');
+        throw new Error(
+          'Solana is supported by CoinGecko, but not yet implemented.'
+        );
         return 'solana';
       case Chain.OPTIMISM:
         return 'optimistic-ethereum';

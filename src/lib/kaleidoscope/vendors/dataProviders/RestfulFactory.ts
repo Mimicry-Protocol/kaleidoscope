@@ -1,5 +1,10 @@
 import { Chain, ConsensusFilter, ConsensusMethod } from '../../../enums';
-import { ConsensusMechanism, ContractPointer, DataProviders, Value } from '../../../types';
+import {
+  ConsensusMechanism,
+  ContractPointer,
+  DataProviders,
+  Value,
+} from '../../../types';
 import { none, mad } from '../../../utils/consensusFilters';
 import { median, random } from '../../../utils/consensusMethods';
 import { mean } from '../../../utils/consensusMethods/mean';
@@ -29,7 +34,7 @@ export class RestfulFactory {
     _dataProviders: DataProviders,
     _method: string,
     _contract: ContractPointer,
-    _consensusMechanism?: ConsensusMechanism,
+    _consensusMechanism?: ConsensusMechanism
   ): Promise<any> {
     const values: Value[] = [];
     const sources: any[] = [];
@@ -52,7 +57,7 @@ export class RestfulFactory {
             provider: _provider.getName(),
             method: _method,
             // @ts-ignore
-            error: error.message
+            error: error.message,
           });
         }
       }
@@ -78,8 +83,8 @@ export class RestfulFactory {
       verboseOutput['data'] = finalValue.amount;
       verboseOutput['sources'] = sources;
     }
-    
-    return (this._verbose) ? verboseOutput : finalValue;
+
+    return this._verbose ? verboseOutput : finalValue;
   }
 
   protected addDataProvider(_providerName: string, _apiKey: string) {
@@ -116,7 +121,7 @@ export class RestfulFactory {
     let dataProviders = _dataProviders;
     if (_providerName) {
       dataProviders = {
-        [_providerName]: _dataProviders[_providerName]
+        [_providerName]: _dataProviders[_providerName],
       };
     }
     return dataProviders;

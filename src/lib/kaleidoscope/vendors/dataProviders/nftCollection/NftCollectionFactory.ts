@@ -10,8 +10,8 @@ import { Reservoir } from './workers/Reservoir';
 
 // @ts-ignore
 export class NftCollectionFactory extends RestfulFactory {
-  private _dataProviders: { 
-    [key: string]: NftCollectionDataProvider 
+  private _dataProviders: {
+    [key: string]: NftCollectionDataProvider;
   } = {};
 
   constructor(_globalConfig: any) {
@@ -22,7 +22,9 @@ export class NftCollectionFactory extends RestfulFactory {
   addDataProvider(_providerName: string, _providerConfig: any) {
     switch (_providerName) {
       case 'dia':
-        this._dataProviders[_providerName] = new DiaNonFungible(_providerConfig);
+        this._dataProviders[_providerName] = new DiaNonFungible(
+          _providerConfig
+        );
         break;
       case 'nftBank':
         this._dataProviders[_providerName] = new NftBank(_providerConfig);
@@ -31,10 +33,14 @@ export class NftCollectionFactory extends RestfulFactory {
         this._dataProviders[_providerName] = new Reservoir(_providerConfig);
         break;
       case 'coinGecko':
-        this._dataProviders[_providerName] = new CoinGeckoNonFungible(_providerConfig);
+        this._dataProviders[_providerName] = new CoinGeckoNonFungible(
+          _providerConfig
+        );
         break;
       case 'coinGeckoPro':
-        this._dataProviders[_providerName] = new CoinGeckoProNonFungible(_providerConfig);
+        this._dataProviders[_providerName] = new CoinGeckoProNonFungible(
+          _providerConfig
+        );
         break;
       case 'nftGo':
         this._dataProviders[_providerName] = new NftGo(_providerConfig);
@@ -53,7 +59,11 @@ export class NftCollectionFactory extends RestfulFactory {
   ): Promise<Value[]> {
     const values: Value[] = [];
     for (const _contract of _contracts) {
-      const value = await this.getFloor(_contract, _consensusMechanism, _providerName);
+      const value = await this.getFloor(
+        _contract,
+        _consensusMechanism,
+        _providerName
+      );
       values.push(value);
     }
 
@@ -65,7 +75,10 @@ export class NftCollectionFactory extends RestfulFactory {
     _consensusMechanism?: ConsensusMechanism,
     _providerName?: string
   ): Promise<any> {
-    const providers = this.getCorrectProviders(this._dataProviders, _providerName);
+    const providers = this.getCorrectProviders(
+      this._dataProviders,
+      _providerName
+    );
     return this.runFactory(
       providers,
       'getFloor',
@@ -78,23 +91,21 @@ export class NftCollectionFactory extends RestfulFactory {
     _contract: ContractPointer,
     _providerName: string
   ): Promise<any> {
-    const providers = this.getCorrectProviders(this._dataProviders, _providerName);
-    return this.runFactory(
-      providers,
-      'getFloorChart',
-      _contract
+    const providers = this.getCorrectProviders(
+      this._dataProviders,
+      _providerName
     );
+    return this.runFactory(providers, 'getFloorChart', _contract);
   }
 
   async getMetadata(
     _contract: ContractPointer,
     _providerName: string
   ): Promise<any> {
-    const providers = this.getCorrectProviders(this._dataProviders, _providerName);
-    return this.runFactory(
-      providers,
-      'getMetadata',
-      _contract
+    const providers = this.getCorrectProviders(
+      this._dataProviders,
+      _providerName
     );
+    return this.runFactory(providers, 'getMetadata', _contract);
   }
 }

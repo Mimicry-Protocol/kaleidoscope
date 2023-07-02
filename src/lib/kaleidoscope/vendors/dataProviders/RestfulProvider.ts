@@ -11,9 +11,10 @@ export class RestfulProvider {
     }
 
     // Futureproofing for when providers have custom configs
-    const apiKey = (typeof _providerConfig === 'string')
-      ? _providerConfig
-      : _providerConfig.apiKey;
+    const apiKey =
+      typeof _providerConfig === 'string'
+        ? _providerConfig
+        : _providerConfig.apiKey;
 
     this._config = {
       key: apiKey,
@@ -28,20 +29,16 @@ export class RestfulProvider {
         retry: {
           limit: 10,
           backoffLimit: 10_000,
-          calculateDelay: ({
-            attemptCount,
-            computedValue, 
-            error
-          }: any) => {
+          calculateDelay: ({ attemptCount, computedValue, error }: any) => {
             if (__DEV__) {
               console.log(`Retrying ${_uri} (${attemptCount} of 10) 
                 in ${computedValue / 5 / 1000} seconds 
                 due to ${error}`);
             }
             return computedValue / 5;
-          }
-        }
-      }
+          },
+        },
+      },
     };
     const json: any = await got(_uri, combinedOptions).json();
     return json;
@@ -71,7 +68,7 @@ export class RestfulProvider {
       case Chain.SOLANA:
         return this.getCurrencyInfoFromSymbol(CurrencySymbol.SOL);
       case Chain.BSC:
-          return this.getCurrencyInfoFromSymbol(CurrencySymbol.BNB);
+        return this.getCurrencyInfoFromSymbol(CurrencySymbol.BNB);
       default:
         throw new Error(`${_chain} is not a valid chain.`);
     }

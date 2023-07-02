@@ -21,7 +21,7 @@ export class NftBank extends RestfulProvider
     const uri = `${host}collection/${_contract.address}/floor`;
     const options = {
       searchParams: {
-        networkId: chain
+        networkId: chain,
       },
       headers: {
         Accept: 'application/json',

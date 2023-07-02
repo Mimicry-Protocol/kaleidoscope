@@ -17,7 +17,7 @@ export function currencyInfoFromChain(_chain?: Chain): CurrencyInfo {
     case Chain.SOLANA:
       return currencyInfoFromSymbol(CurrencySymbol.SOL);
     case Chain.BSC:
-        return currencyInfoFromSymbol(CurrencySymbol.BNB);
+      return currencyInfoFromSymbol(CurrencySymbol.BNB);
     case Chain.KLAYTN:
       return currencyInfoFromSymbol(CurrencySymbol.KLAY);
     case Chain.AVALANCHE:

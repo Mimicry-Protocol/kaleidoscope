@@ -1,4 +1,8 @@
-import { ContractPointer, NFTCollectionMetadata, Value } from '../../../../../types';
+import {
+  ContractPointer,
+  NFTCollectionMetadata,
+  Value,
+} from '../../../../../types';
 import { RestfulProvider } from '../../RestfulProvider';
 import { NftCollectionDataProvider } from '../NftCollectionDataProvider';
 import { numberToValue } from '../../../../../utils/numberToValue';
@@ -21,7 +25,7 @@ export class Reservoir extends RestfulProvider
     const uri = `${host}stats/v2/`;
     const options = {
       searchParams: {
-        collection: _contract.address
+        collection: _contract.address,
       },
       headers: {
         Accept: 'application/json',
@@ -47,7 +51,7 @@ export class Reservoir extends RestfulProvider
     const uri = `${host}collections/v5`;
     const options = {
       searchParams: {
-        id: _contract.address
+        id: _contract.address,
       },
       headers: {
         Accept: 'application/json',
@@ -63,7 +67,8 @@ export class Reservoir extends RestfulProvider
       name: collection.name,
       description: collection.description,
       createdAt: collection.createdAt,
-      openseaVerificationStatus: (collection.openseaVerificationStatus === 'verified') ? true : false,
+      openseaVerificationStatus:
+        collection.openseaVerificationStatus === 'verified' ? true : false,
       openseaSlug: collection.slug,
       collectionSize: collection.tokenCount,
       onSaleCount: collection.onSaleCount,
@@ -74,8 +79,10 @@ export class Reservoir extends RestfulProvider
         banner: collection.banner,
         samples: collection.sampleImages,
       },
-      urls: { 
-        explorer: `${chainToBlockchainExplorerHost(_contract.chain)}/address/${_contract.address}`,
+      urls: {
+        explorer: `${chainToBlockchainExplorerHost(_contract.chain)}/address/${
+          _contract.address
+        }`,
         website: collection.externalUrl,
         discord: collection.discordUrl,
         twitter: `https://twitter.com/${collection.twitterUsername}`,
@@ -83,23 +90,49 @@ export class Reservoir extends RestfulProvider
       stats: {
         currencyInfo: currencyInfo,
         floor: {
-          h24: numberToValue(Number(collection.floorSale['1day']), currencyInfo).amount,
-          h24Change: numberToValue(Number(collection.floorSaleChange['1day']), currencyInfo).amount.decimal,
-          d7: numberToValue(Number(collection.floorSale['7day']), currencyInfo).amount,
-          d7Change: numberToValue(Number(collection.floorSaleChange['7day']), currencyInfo).amount.decimal,
-          d30: numberToValue(Number(collection.floorSale['30day']), currencyInfo).amount,
-          d30Change: numberToValue(Number(collection.floorSaleChange['30day']), currencyInfo).amount.decimal,
+          h24: numberToValue(Number(collection.floorSale['1day']), currencyInfo)
+            .amount,
+          h24Change: numberToValue(
+            Number(collection.floorSaleChange['1day']),
+            currencyInfo
+          ).amount.decimal,
+          d7: numberToValue(Number(collection.floorSale['7day']), currencyInfo)
+            .amount,
+          d7Change: numberToValue(
+            Number(collection.floorSaleChange['7day']),
+            currencyInfo
+          ).amount.decimal,
+          d30: numberToValue(
+            Number(collection.floorSale['30day']),
+            currencyInfo
+          ).amount,
+          d30Change: numberToValue(
+            Number(collection.floorSaleChange['30day']),
+            currencyInfo
+          ).amount.decimal,
         },
         volume: {
-          h24: numberToValue(Number(collection.volume['1day']), currencyInfo).amount,
-          h24Change: numberToValue(Number(collection.volumeChange['1day']), currencyInfo).amount.decimal,
-          d7: numberToValue(Number(collection.volume['7day']), currencyInfo).amount,
-          d7Change: numberToValue(Number(collection.volumeChange['7day']), currencyInfo).amount.decimal,
-          d30: numberToValue(Number(collection.volume['30day']), currencyInfo).amount,
-          d30Change: numberToValue(Number(collection.volumeChange['30day']), currencyInfo).amount.decimal,
+          h24: numberToValue(Number(collection.volume['1day']), currencyInfo)
+            .amount,
+          h24Change: numberToValue(
+            Number(collection.volumeChange['1day']),
+            currencyInfo
+          ).amount.decimal,
+          d7: numberToValue(Number(collection.volume['7day']), currencyInfo)
+            .amount,
+          d7Change: numberToValue(
+            Number(collection.volumeChange['7day']),
+            currencyInfo
+          ).amount.decimal,
+          d30: numberToValue(Number(collection.volume['30day']), currencyInfo)
+            .amount,
+          d30Change: numberToValue(
+            Number(collection.volumeChange['30day']),
+            currencyInfo
+          ).amount.decimal,
         },
-      }
-    }
+      },
+    };
 
     return metadata;
   }

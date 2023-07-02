@@ -15,9 +15,11 @@ export function median(_values: Value[]): Value {
   // Check if all currencies are the same
   const currency = _values[0].currencyInfo;
   for (const value of _values) {
-      if (value.currencyInfo.symbol !== currency.symbol) {
-          throw new Error("All Values must be in the same currency to calculate median.");
-      }
+    if (value.currencyInfo.symbol !== currency.symbol) {
+      throw new Error(
+        'All Values must be in the same currency to calculate median.'
+      );
+    }
   }
 
   // sort _values by their decimal amount
@@ -36,7 +38,9 @@ export function median(_values: Value[]): Value {
       currencyInfo: _values[midIndex].currencyInfo, // assuming all _values have the same currencyInfo
       amount: {
         atomic: BigInt(
-          average.times(10 ** _values[midIndex].currencyInfo.decimals).toFixed(0)
+          average
+            .times(10 ** _values[midIndex].currencyInfo.decimals)
+            .toFixed(0)
         ), // convert decimal value times 10 to the power of decimals to bigint
         decimal: average,
       },

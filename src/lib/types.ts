@@ -34,7 +34,7 @@ export type ContractPointer = {
 
 export type DataProviders = {
   [key: string]: any;
-}
+};
 
 // export type ThrottleConfig = {
 //   limit: number; // number of requests allowed per interval
@@ -62,8 +62,8 @@ export type NFTCollectionMetadata = {
     thumbnail: string;
     banner?: string;
     samples?: string[];
-  }
-  urls: { 
+  };
+  urls: {
     explorer: string;
     website?: string;
     discord?: string;
@@ -79,7 +79,7 @@ export type NFTCollectionMetadata = {
       d7Change?: Decimal;
       d30?: Amount;
       d30Change?: Decimal;
-    }
+    };
     volume?: {
       h24?: Amount;
       h24Change?: Decimal;
@@ -87,6 +87,6 @@ export type NFTCollectionMetadata = {
       d7Change?: Decimal;
       d30?: Amount;
       d30Change?: Decimal;
-    }
-  }
+    };
+  };
 };
