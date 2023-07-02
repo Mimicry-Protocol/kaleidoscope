@@ -35,8 +35,6 @@ export class NftBank extends RestfulProvider
     return numberToValue(Number(json.data.floor.eth), currencyInfo);
   }
 
-  // https://developer.nftbank.ai/reference/collection_metadata_v1_collection__assetcontract__metadata_get
-  // https://api.nftbank.run/v1/collection/{assetContract}/metadata?networkId=ethereum
   async getMetadata(_contract: ContractPointer): Promise<any> {
     throw new Error('Method not implemented.');
   }
