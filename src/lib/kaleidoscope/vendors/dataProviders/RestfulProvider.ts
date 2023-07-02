@@ -1,6 +1,6 @@
 import got from 'got';
 import { Chain, CurrencySymbol } from '../../../enums';
-import { ApiConfig, CurrencyInfo, ThrottleConfig } from '../../../types';
+import { ApiConfig, CurrencyInfo } from '../../../types';
 
 export class RestfulProvider {
   private _config: ApiConfig;
@@ -117,12 +117,5 @@ export class RestfulProvider {
 
   getName(): string {
     return this.constructor.name;
-  }
-
-  getThrottleConfig(): ThrottleConfig {
-    return {
-      limit: 5,
-      interval: 1000,
-    };
   }
 }
