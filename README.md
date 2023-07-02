@@ -116,34 +116,29 @@ To add a new provider, you need to do the following:
 13. Update the README.md to include the new provider in the list of supported providers.
 
 
-
-## MVP Roadmap
-- [x] Multichain: ethereum NFTs
-- [x] support Currency: ETH
+## Implemented Features
 - [x] support Metric: Floor Price
 - [x] support Consensus Filter: None
 - [x] support Consensus Filter: Mean Absolute Deviation
 - [x] support Consensus Method: Median
-- [x] support Provider: DIA
-- [x] support Retry strategy with exponential backoff
-- [x] support Provider: NFTBank
-- [x] support Provider: Reservoir
-- [x] support Provider: NFTGo
+- [x] support Consensus Method: Mean
+- [x] support Consensus Method: Random
+- [x] APIs called with exponential-backoff retry strategy
+- [x] support for providers failing to return a response
+
 
 ## Backlog
-- [ ] support for providers failing to return a response
-- [ ] support Provider: CoinGecko
+
+### Features
+- [ ] support getCandles() method with multiple timeframes
+- [ ] support Solana via collection title search
+- [ ] support normalizing all output to USD
+- [ ] support Metric: Market Cap
+- [ ] support getPrice for fungible tokens
+
+### Providers
 - [ ] support Provider: HelloMoon
 - [ ] support Provider: Center
 - [ ] support Provider: Zash
 - [ ] support Provider: Gallop
-
-- [ ] support getCandles() method, 1d timeframe
-- [ ] support Chain: polygon NFTs
-- [ ] support Chain: solana NFTs
-- [ ] support Currency: MATIC
-- [ ] support Currency: SOL
-- [ ] support Currency: USD
-- [ ] support Metric: Market Cap
-- [ ] support getPrice for fungible tokens
 - [ ] support Provider: Nefertiti
