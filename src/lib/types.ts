@@ -46,12 +46,13 @@ export type NFTCollectionMetadata = {
   contract: ContractPointer;
   name: string;
   description: string;
+  collectionSize: number;
+  ownerCount: number;
+  onSaleCount: number;
+  //
   createdAt?: string;
   openseaVerificationStatus?: boolean;
   openseaSlug?: string;
-  collectionSize: number;
-  onSaleCount: number;
-  ownerCount: number;
   contractType?: string;
   images: {
     thumbnail: string;
@@ -64,8 +65,8 @@ export type NFTCollectionMetadata = {
     discord?: string;
     twitter?: string;
   };
-  stats: {
-    currencyInfo: CurrencyInfo;
+  stats?: {
+    currencyInfo?: CurrencyInfo;
     marketCap?: Amount;
     floor?: {
       h24?: Amount;
@@ -74,8 +75,6 @@ export type NFTCollectionMetadata = {
       d7Change?: Decimal;
       d30?: Amount;
       d30Change?: Decimal;
-      y1?: Amount;
-      y1Change?: Decimal;
     }
     volume?: {
       h24?: Amount;
@@ -84,8 +83,6 @@ export type NFTCollectionMetadata = {
       d7Change?: Decimal;
       d30?: Amount;
       d30Change?: Decimal;
-      y1?: Amount;
-      y1Change?: Decimal;
     }
   }
 };
