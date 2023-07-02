@@ -1,7 +1,8 @@
-import { ContractPointer, Value } from '../../../../../types';
+import { ContractPointer, NFTCollectionMetadata, Value } from '../../../../../types';
 import { RestfulProvider } from '../../RestfulProvider';
 import { NftCollectionDataProvider } from '../NftCollectionDataProvider';
 import { numberToValue } from '../../../../../utils/numberToValue';
+import { chainToBlockchainExplorerHost } from '../../../../../utils/chainToBlockchainExplorerHost';
 import { Chain } from '../../../../../enums';
 
 // Docs: https://docs.reservoir.tools/
@@ -41,7 +42,70 @@ export class Reservoir extends RestfulProvider
 
   // https://api.reservoir.tools/collections/v5?id={contractAddress}
   async getMetadata(_contract: ContractPointer): Promise<any> {
-    throw new Error('Method not implemented.');
+    const host = this.getHost(_contract.chain);
+    const uri = `${host}collections/v5`;
+    const options = {
+      searchParams: {
+        id: _contract.address
+      },
+      headers: {
+        Accept: 'application/json',
+        'x-api-key': this.getApiKey(),
+      },
+    };
+    const json: any = await this.gotJson(uri, options);
+    const collection = json.collections[0];
+
+    const currencyInfo = this.getCurrencyInfoFromChain(_contract.chain);
+    const metadata: NFTCollectionMetadata = {
+      contract: _contract,
+      name: collection.name,
+      description: collection.description,
+      createdAt: collection.createdAt,
+      openseaVerificationStatus: (collection.openseaVerificationStatus === 'verified') ? true : false,
+      openseaSlug: collection.slug,
+      collectionSize: collection.tokenCount,
+      onSaleCount: collection.onSaleCount,
+      ownerCount: collection.ownerCount,
+      contractType: collection.contractKind,
+      images: {
+        thumbnail: collection.image,
+        banner: collection.banner,
+        samples: collection.sampleImages,
+      },
+      urls: { 
+        explorer: `${chainToBlockchainExplorerHost(_contract.chain)}/address/${_contract.address}`,
+        website: collection.externalUrl,
+        discord: collection.discordUrl,
+        twitter: `https://twitter.com/${collection.twitterUsername}`,
+      },
+      stats: {
+        currencyInfo: currencyInfo,
+        // marketCap: null,
+        floor: {
+          h24: numberToValue(Number(collection.floorSale['1day']), currencyInfo).amount,
+          h24Change: numberToValue(Number(collection.floorSaleChange['1day']), currencyInfo).amount.decimal,
+          d7: numberToValue(Number(collection.floorSale['7day']), currencyInfo).amount,
+          d7Change: numberToValue(Number(collection.floorSaleChange['7day']), currencyInfo).amount.decimal,
+          d30: numberToValue(Number(collection.floorSale['30day']), currencyInfo).amount,
+          d30Change: numberToValue(Number(collection.floorSaleChange['30day']), currencyInfo).amount.decimal,
+          // y1: Amount;
+          // y1Change: Decimal;
+        },
+        volume: {
+          h24: numberToValue(Number(collection.volume['1day']), currencyInfo).amount,
+          h24Change: numberToValue(Number(collection.volumeChange['1day']), currencyInfo).amount.decimal,
+          d7: numberToValue(Number(collection.volume['7day']), currencyInfo).amount,
+          d7Change: numberToValue(Number(collection.volumeChange['7day']), currencyInfo).amount.decimal,
+          d30: numberToValue(Number(collection.volume['30day']), currencyInfo).amount,
+          d30Change: numberToValue(Number(collection.volumeChange['30day']), currencyInfo).amount.decimal,
+          // y1: Amount;
+          // y1Change: Decimal;
+        },
+      }
+    }
+
+    return metadata;
   }
 
   getHost(_chain?: Chain): string {
