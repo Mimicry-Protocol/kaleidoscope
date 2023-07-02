@@ -36,6 +36,17 @@ Kaleidoscope is an NPM package that conveniently aggregates responses from multi
 | CoinGecko | yes | no | no |
 | CoinGecko Pro | yes | no | yes |
 
+### Supported Chains
+| | `Floor` | `Metadata` | `Candles` |
+|--|:--:|:--:|:--:|
+| Ethereum  | yes | yes | yes |
+| Polygon   | yes | yes | yes |
+| Binance Smart Chain | yes | yes | yes |
+| Arbitrum  | yes | yes | yes |
+| Optimism  | yes | yes | yes |
+| Klaytn    | yes | no | yes |
+| Avalanche | yes | no | yes |
+| Solana    | soon | soon | soon |
 
 ## Installation
 Run `yarn add @mimicry/kaleidoscope@latest` to install the module.
@@ -107,7 +118,7 @@ To add a new provider, you need to do the following:
 
 
 ## MVP Roadmap
-- [x] support Chain: ethereum NFTs
+- [x] Multichain: ethereum NFTs
 - [x] support Currency: ETH
 - [x] support Metric: Floor Price
 - [x] support Consensus Filter: None
@@ -117,6 +128,7 @@ To add a new provider, you need to do the following:
 - [x] support Retry strategy with exponential backoff
 - [x] support Provider: NFTBank
 - [x] support Provider: Reservoir
+- [x] support Provider: NFTGo
 
 ## Backlog
 - [ ] support for providers failing to return a response
@@ -124,7 +136,6 @@ To add a new provider, you need to do the following:
 - [ ] support Provider: HelloMoon
 - [ ] support Provider: Center
 - [ ] support Provider: Zash
-- [ ] support Provider: NFTGo
 - [ ] support Provider: Gallop
 
 - [ ] support getCandles() method, 1d timeframe
