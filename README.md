@@ -27,11 +27,14 @@ Kaleidoscope is an NPM package that conveniently aggregates responses from multi
 
 ### NFT Collection Data Providers
 
-| | `Floor (ETH)` | `Floor (POLYGON)` | `Floor (SOLANA)` |
+| | `Floor` | `Metadata` | `Candles` |
 |--|:--:|:--:|:--:|
 | DIA       | yes | no | no |
 | NFTBank   | yes | no | no |
-| Reservoir | yes | no | no |
+| NFTGo   | yes | no | no |
+| Reservoir | yes | yes | no |
+| CoinGecko | yes | no | no |
+| CoinGecko Pro | yes | no | yes |
 
 
 ## Installation

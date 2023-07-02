@@ -5,6 +5,7 @@ import { CoinGeckoNonFungible } from './workers/CoinGeckoNonFungible';
 import { CoinGeckoProNonFungible } from './workers/CoinGeckoProNonFungible';
 import { DiaNonFungible } from './workers/DiaNonFungible';
 import { NftBank } from './workers/NftBank';
+import { NftGo } from './workers/NftGo';
 import { Reservoir } from './workers/Reservoir';
 
 // @ts-ignore
@@ -34,6 +35,9 @@ export class NftCollectionFactory extends RestfulFactory {
         break;
       case 'coinGeckoPro':
         this._dataProviders[_providerName] = new CoinGeckoProNonFungible(_providerConfig);
+        break;
+      case 'nftGo':
+        this._dataProviders[_providerName] = new NftGo(_providerConfig);
         break;
       default:
         throw new Error(
@@ -67,6 +71,18 @@ export class NftCollectionFactory extends RestfulFactory {
       'getFloor',
       _contract,
       _consensusMechanism
+    );
+  }
+
+  async getFloorChart(
+    _contract: ContractPointer,
+    _providerName: string
+  ): Promise<any> {
+    const providers = this.getCorrectProviders(this._dataProviders, _providerName);
+    return this.runFactory(
+      providers,
+      'getFloorChart',
+      _contract
     );
   }
 
