@@ -62,12 +62,16 @@ export class RestfulProvider {
   getCurrencyInfoFromChain(_chain?: Chain): CurrencyInfo {
     switch (_chain) {
       case undefined:
+      case Chain.ARBITRUM:
+      case Chain.OPTIMISM:
       case Chain.ETHEREUM:
         return this.getCurrencyInfoFromSymbol(CurrencySymbol.ETH);
       case Chain.POLYGON:
         return this.getCurrencyInfoFromSymbol(CurrencySymbol.MATIC);
       case Chain.SOLANA:
         return this.getCurrencyInfoFromSymbol(CurrencySymbol.SOL);
+      case Chain.BSC:
+          return this.getCurrencyInfoFromSymbol(CurrencySymbol.BNB);
       default:
         throw new Error(`${_chain} is not a valid chain.`);
     }
@@ -86,6 +90,12 @@ export class RestfulProvider {
         return {
           symbol: CurrencySymbol.MATIC,
           name: 'Matic',
+          decimals: 18,
+        };
+      case CurrencySymbol.BNB:
+        return {
+          symbol: CurrencySymbol.BNB,
+          name: 'Binance Coin',
           decimals: 18,
         };
       case CurrencySymbol.SOL:

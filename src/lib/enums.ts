@@ -21,6 +21,7 @@ export enum CurrencySymbol {
   USD = 'USD',
   MATIC = 'MATIC',
   SOL = 'SOL',
+  BNB = 'BNB',
 }
 
 export enum ConsensusFilter {
