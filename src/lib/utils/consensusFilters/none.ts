@@ -1,11 +1,11 @@
 import { Value } from '../../types';
 
 /**
- * Return all values with no filtering
+ * Return all _values with no filtering
  *
- * @param values A list of Values
+ * @param _values A list of Values
  * @returns The original list of Values
  */
-export function none(values: Value[]): Value[] {
-  return values;
+export function none(_values: Value[]): Value[] {
+  return _values;
 }

@@ -2,22 +2,22 @@ import { Decimal } from 'decimal.js';
 import { Value } from '../../types';
 
 /**
- * Return all values that fall within the Mean Absolute Deviation of the mean
+ * Return all _values that fall within the Mean Absolute Deviation of the mean
  *
- * @param values A list of Values
+ * @param _values A list of Values
  * @returns A filtered list of Values
  */
-export function mad(values: Value[]): Value[] {
-  if (values.length === 0) return values;
+export function mad(_values: Value[]): Value[] {
+  if (_values.length === 0) return _values;
 
-  const mean: Decimal = values
+  const mean: Decimal = _values
     .reduce(
       (acc: Decimal, val: Value) => acc.plus(val.amount.decimal),
       new Decimal(0)
     )
-    .dividedBy(values.length);
+    .dividedBy(_values.length);
 
-  const deviations: Decimal[] = values.map(val =>
+  const deviations: Decimal[] = _values.map(val =>
     val.amount.decimal.minus(mean).absoluteValue()
   );
 
@@ -29,8 +29,8 @@ export function mad(values: Value[]): Value[] {
   const lowerBound: Decimal = mean.minus(meanAbsoluteDeviation);
   const upperBound: Decimal = mean.plus(meanAbsoluteDeviation);
 
-  // Filter the values that fall within the range
-  const filteredValues: Value[] = values.filter(
+  // Filter the _values that fall within the range
+  const filteredValues: Value[] = _values.filter(
     val =>
       val.amount.decimal.greaterThanOrEqualTo(lowerBound) &&
       val.amount.decimal.lessThanOrEqualTo(upperBound)
