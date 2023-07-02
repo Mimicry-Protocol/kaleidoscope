@@ -1,12 +1,3 @@
-export enum BlockchainExplorer {
-  ETHEREUM = 'https://etherscan.io/',
-  POLYGON = 'https://polygonscan.com/',
-  SOLANA = 'https://explorer.solana.com/',
-  BSC = 'https://bscscan.com/',
-  ARBITRUM = 'https://arbiscan.io/',
-  OPTIMISM = 'https://optimistic.etherscan.io/',
-}
-
 export enum Chain {
   ETHEREUM = 'ethereum',
   POLYGON = 'polygon',
