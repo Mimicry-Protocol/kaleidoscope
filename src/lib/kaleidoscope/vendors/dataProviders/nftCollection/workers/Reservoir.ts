@@ -82,7 +82,6 @@ export class Reservoir extends RestfulProvider
       },
       stats: {
         currencyInfo: currencyInfo,
-        // marketCap: null,
         floor: {
           h24: numberToValue(Number(collection.floorSale['1day']), currencyInfo).amount,
           h24Change: numberToValue(Number(collection.floorSaleChange['1day']), currencyInfo).amount.decimal,
@@ -90,8 +89,6 @@ export class Reservoir extends RestfulProvider
           d7Change: numberToValue(Number(collection.floorSaleChange['7day']), currencyInfo).amount.decimal,
           d30: numberToValue(Number(collection.floorSale['30day']), currencyInfo).amount,
           d30Change: numberToValue(Number(collection.floorSaleChange['30day']), currencyInfo).amount.decimal,
-          // y1: Amount;
-          // y1Change: Decimal;
         },
         volume: {
           h24: numberToValue(Number(collection.volume['1day']), currencyInfo).amount,
@@ -100,8 +97,6 @@ export class Reservoir extends RestfulProvider
           d7Change: numberToValue(Number(collection.volumeChange['7day']), currencyInfo).amount.decimal,
           d30: numberToValue(Number(collection.volume['30day']), currencyInfo).amount,
           d30Change: numberToValue(Number(collection.volumeChange['30day']), currencyInfo).amount.decimal,
-          // y1: Amount;
-          // y1Change: Decimal;
         },
       }
     }
