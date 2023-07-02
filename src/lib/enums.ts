@@ -5,6 +5,8 @@ export enum Chain {
   BSC = 'bsc',
   ARBITRUM = 'arbitrum',
   OPTIMISM = 'optimism',
+  KLAYTN = 'klaytn',
+  AVALANCHE = 'avalanche',
 }
 
 export enum CurrencySymbol {
@@ -13,6 +15,8 @@ export enum CurrencySymbol {
   MATIC = 'MATIC',
   SOL = 'SOL',
   BNB = 'BNB',
+  KLAY = 'KLAY',
+  AVAX = 'AVAX',
 }
 
 export enum ConsensusFilter {

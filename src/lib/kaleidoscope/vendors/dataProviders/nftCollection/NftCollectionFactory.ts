@@ -2,6 +2,8 @@ import { ConsensusFilter, ConsensusMethod } from '../../../../enums';
 import { ConsensusMechanism, ContractPointer, Value } from '../../../../types';
 import { RestfulFactory } from '../RestfulFactory';
 import { NftCollectionDataProvider } from './NftCollectionDataProvider';
+import { CoinGeckoNonFungible } from './workers/CoinGeckoNonFungible';
+import { CoinGeckoProNonFungible } from './workers/CoinGeckoProNonFungible';
 import { DiaNonFungible } from './workers/DiaNonFungible';
 import { NftBank } from './workers/NftBank';
 import { Reservoir } from './workers/Reservoir';
@@ -25,6 +27,12 @@ export class NftCollectionFactory extends RestfulFactory {
         break;
       case 'reservoir':
         this._dataProviders.push(new Reservoir(_providerConfig));
+        break;
+      case 'coinGecko':
+        this._dataProviders.push(new CoinGeckoNonFungible(_providerConfig));
+        break;
+      case 'coinGeckoPro':
+        this._dataProviders.push(new CoinGeckoProNonFungible(_providerConfig));
         break;
       default:
         throw new Error(
