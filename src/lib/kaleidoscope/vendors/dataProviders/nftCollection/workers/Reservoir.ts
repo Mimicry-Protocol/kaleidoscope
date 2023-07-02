@@ -40,6 +40,7 @@ export class Reservoir extends RestfulProvider
     return numberToValue(floor, currencyInfo);
   }
 
+  // https://docs.reservoir.tools/reference/getcollectionsv5
   // https://api.reservoir.tools/collections/v5?id={contractAddress}
   async getMetadata(_contract: ContractPointer): Promise<any> {
     const host = this.getHost(_contract.chain);
