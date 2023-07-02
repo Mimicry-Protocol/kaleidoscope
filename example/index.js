@@ -24,6 +24,9 @@ import 'dotenv/config';
         
         const hvMtlFloor = await kaleidoscope.nftCollection.getFloor({
             address: '0x4b15a9c28034dC83db40CD810001427d3BD7163D',
+        }, {
+            filter: "mad",
+            method: "mean",
         });
         console.log(hvMtlFloor);
         console.log(hvMtlFloor.sources);

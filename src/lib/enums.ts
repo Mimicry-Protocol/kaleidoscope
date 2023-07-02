@@ -20,11 +20,12 @@ export enum CurrencySymbol {
 }
 
 export enum ConsensusFilter {
-  MAD = 'mean-absolute-deviation',
+  MAD = 'mad', // Mean Absolute Deviation
   NONE = 'none',
 }
 
 export enum ConsensusMethod {
   MEDIAN = 'median',
   RANDOM = 'random',
+  MEAN = 'mean',
 }

@@ -2,6 +2,7 @@ import { Chain, ConsensusFilter, ConsensusMethod } from '../../../enums';
 import { ConsensusMechanism, ContractPointer, DataProviders, Value } from '../../../types';
 import { none, mad } from '../../../utils/consensusFilters';
 import { median, random } from '../../../utils/consensusMethods';
+import { mean } from '../../../utils/consensusMethods/mean';
 
 export class RestfulFactory {
   private _verbose: boolean = false;
@@ -150,6 +151,8 @@ export class RestfulFactory {
       case undefined:
       case ConsensusMethod.MEDIAN:
         return median(_data);
+      case ConsensusMethod.MEAN:
+        return mean(_data);
       case ConsensusMethod.RANDOM:
         return random(_data);
       default:
