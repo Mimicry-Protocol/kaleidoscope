@@ -1,3 +1,4 @@
+import { Timeframe } from '../../../../enums';
 import { ConsensusMechanism, ContractPointer, Value } from '../../../../types';
 import { RestfulFactory } from '../RestfulFactory';
 import { NftCollectionDataProvider } from './NftCollectionDataProvider';
@@ -82,20 +83,25 @@ export class NftCollectionFactory extends RestfulFactory {
     return this.runFactory(
       providers,
       'getFloor',
-      _contract,
+      [_contract],
       _consensusMechanism
     );
   }
 
   async getFloorChart(
     _contract: ContractPointer,
-    _providerName: string
+    _providerName: string,
+    _timeframe?: Timeframe
   ): Promise<any> {
     const providers = this.getCorrectProviders(
       this._dataProviders,
       _providerName
     );
-    return this.runFactory(providers, 'getFloorChart', _contract);
+    return this.runFactory(
+      providers, 
+      'getFloorChart', 
+      [_contract, _timeframe]
+    );
   }
 
   async getMetadata(
@@ -106,6 +112,10 @@ export class NftCollectionFactory extends RestfulFactory {
       this._dataProviders,
       _providerName
     );
-    return this.runFactory(providers, 'getMetadata', _contract);
+    return this.runFactory(
+      providers, 
+      'getMetadata', 
+      [_contract]
+    );
   }
 }

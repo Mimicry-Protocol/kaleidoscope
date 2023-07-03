@@ -125,18 +125,18 @@ To add a new provider, you need to do the following:
 - [x] support Consensus Method: Random
 - [x] APIs called with exponential-backoff retry strategy
 - [x] support for providers failing to return a response
-
+- [x] support getCandles() method with multiple timeframes
 
 ## Backlog
 
 ### Features
-- [ ] support getCandles() method with multiple timeframes
 - [ ] support Solana via collection title search
 - [ ] support normalizing all output to USD
 - [ ] support Metric: Market Cap
 - [ ] support getPrice for fungible tokens
 
 ### Providers
+- [ ] support Provider: NFTScan
 - [ ] support Provider: HelloMoon
 - [ ] support Provider: Center
 - [ ] support Provider: Zash

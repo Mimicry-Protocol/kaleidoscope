@@ -29,3 +29,12 @@ export enum ConsensusMethod {
   RANDOM = 'random',
   MEAN = 'mean',
 }
+
+export enum Timeframe {
+  FIVE_MIN = '5m',
+  FIFTEEN_MIN = '15m',
+  THIRTY_MIN = '30m',
+  ONE_HOUR = '1h',
+  ONE_DAY = '1d',
+  ONE_WEEK = '1w',
+}

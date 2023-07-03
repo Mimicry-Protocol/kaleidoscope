@@ -1,10 +1,5 @@
 import { Chain, ConsensusFilter, ConsensusMethod } from '../../../enums';
-import {
-  ConsensusMechanism,
-  ContractPointer,
-  DataProviders,
-  Value,
-} from '../../../types';
+import { ConsensusMechanism, DataProviders, Value } from '../../../types';
 import { none, mad } from '../../../utils/consensusFilters';
 import { median, random } from '../../../utils/consensusMethods';
 import { mean } from '../../../utils/consensusMethods/mean';
@@ -33,7 +28,7 @@ export class RestfulFactory {
   async runFactory(
     _dataProviders: DataProviders,
     _method: string,
-    _contract: ContractPointer,
+    _params: any,
     _consensusMechanism?: ConsensusMechanism
   ): Promise<any> {
     const values: Value[] = [];
@@ -42,7 +37,7 @@ export class RestfulFactory {
     for (const key in _dataProviders) {
       const _provider = _dataProviders[key];
       try {
-        const value: Value = await _provider[_method](_contract);
+        const value: Value = await _provider[_method](..._params);
         values.push(value);
 
         sources.push({

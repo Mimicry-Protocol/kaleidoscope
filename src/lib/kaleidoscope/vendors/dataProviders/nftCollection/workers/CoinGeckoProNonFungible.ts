@@ -1,8 +1,10 @@
-import { Chain } from '../../../../../enums';
+import { Chain, Timeframe } from '../../../../../enums';
 import { ContractPointer, Value } from '../../../../../types';
 import { RestfulProvider } from '../../RestfulProvider';
 import { NftCollectionDataProvider } from '../NftCollectionDataProvider';
 import { numberToValue } from '../../../../../utils/numberToValue';
+import { ticksToIOCHLV } from '../../../../../utils/charts/ticksToIOCHLV';
+import { batchCandleJSON, IOHLCV } from 'candlestick-convert';
 
 // Docs: https://www.coingecko.com/en/api/documentation
 // Pro Docs: https://apiguide.coingecko.com/exclusive-endpoints/for-paid-plan-subscribers
@@ -15,13 +17,17 @@ export class CoinGeckoProNonFungible extends RestfulProvider
   }
 
   // {host}/nfts/{asset_platform_id}/contract/{contract_address}/market_chart
-  async getFloorChart(_contract: ContractPointer): Promise<any> {
+  async getFloorChart(
+    _contract: ContractPointer,
+    _timeframe?: Timeframe
+  ): Promise<any> {
+    const [ _days, _newTimeframe ] = this._getTimeParams(_timeframe);
     const host = this.getApiHost();
     const chain = this.getBlockchain(_contract.chain);
     const uri = `${host}nfts/${chain}/contract/${_contract.address}/market_chart`;
     const options = {
       searchParams: {
-        days: 14,
+        days: _days,
       },
       headers: {
         Accept: 'application/json',
@@ -29,15 +35,69 @@ export class CoinGeckoProNonFungible extends RestfulProvider
       },
     };
 
+    // Get the ticks and convert them to candles
     const json: any = await this.gotJson(uri, options);
+    let iochlv: IOHLCV[] = ticksToIOCHLV(json.floor_price_native);
+
+    // 5 minutes is the default timeframe for <=14 days of data
+    let baseTimeframe: number = 60 * 5;
+    if (_days === 'max') {
+      // 1d is the default timeframe for >14 days of data
+      // We have 1d volume to match to 1d candles
+      iochlv = this._injectVolumeIntoIOCHLV(iochlv, json.h24_volume_native); // add volume to 1d candles
+      baseTimeframe = 60 * 60 * 24;
+    }
+
+    // Convert the candles to the requested timeframe
+    iochlv = batchCandleJSON(iochlv, baseTimeframe, _newTimeframe);
 
     const currencyInfo = this.getCurrencyInfoFromChain(_contract.chain);
     const combinedResponse = {
-      nativeCurrencyInfo: currencyInfo,
-      ticks: json,
+      currencyInfo: currencyInfo,
+      iochlv: iochlv,
+      // ticks: json,
     };
     return combinedResponse;
   }
+
+  private _getTimeParams(_timeframe?: Timeframe): [number | string, number] {
+    switch (_timeframe) {
+      case Timeframe.FIVE_MIN:
+        return [14, 60 * 5];
+      case Timeframe.FIFTEEN_MIN:
+        return [14, 60 * 15];
+        case Timeframe.THIRTY_MIN:
+          return [14, 60 * 15];
+      case Timeframe.ONE_HOUR:
+        return [14, 60 * 60];
+      case undefined:
+      case Timeframe.ONE_DAY:
+        return ["max", 60 * 60 * 24];
+      case Timeframe.ONE_WEEK:
+        return ["max", 60 * 60 * 24 * 7];
+      default:
+        throw new Error('Invalid timeframe.');
+    }
+  }
+
+  private _injectVolumeIntoIOCHLV(
+    _iochlv: IOHLCV[], 
+    _volume: [number, number][]
+  ): IOHLCV[] {
+    // Create a volume map for quick lookup
+    const volumeMap = new Map(_volume.map(([time, volume]) => [time, volume]));
+  
+    // Add volume to the matching IOHLCV data
+    return _iochlv.map(ohlcv => {
+      const volume = volumeMap.get(ohlcv.time) || 0;
+  
+      return {
+        ...ohlcv,
+        volume: volume
+      };
+    });
+  }
+  
 
   // {host}/nfts/{chain}/contract/{contract_address}
   async getFloor(_contract: ContractPointer): Promise<Value> {
