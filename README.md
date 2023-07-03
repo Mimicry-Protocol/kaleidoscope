@@ -27,26 +27,26 @@ Kaleidoscope is an NPM package that conveniently aggregates responses from multi
 
 ### NFT Collection Data Providers
 
-| | `Floor` | `Metadata` | `Candles` |
-|--|:--:|:--:|:--:|
-| DIA       | yes | no | no |
-| NFTBank   | yes | no | no |
-| NFTGo   | yes | no | no |
-| Reservoir | yes | yes | no |
-| CoinGecko | yes | no | no |
-| CoinGecko Pro | yes | no | yes |
+|               | `Floor`            | `Metadata`         | `Candles`          |
+|---------------|:------------------:|:------------------:|:------------------:|
+| DIA           | :heavy_check_mark: | :x:                | :x:                |
+| NFTBank       | :heavy_check_mark: | :x:                | :x:                |
+| NFTGo         | :heavy_check_mark: | :x:                | :x:                |
+| Reservoir     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
+| CoinGecko     | :heavy_check_mark: | :x:                | :x:                |
+| CoinGecko Pro | :heavy_check_mark: | :x:                | :heavy_check_mark: |
 
 ### Supported Chains
-| | `Floor` | `Metadata` | `Candles` |
-|--|:--:|:--:|:--:|
-| Ethereum  | yes | yes | yes |
-| Polygon   | yes | yes | yes |
-| Binance Smart Chain | yes | yes | yes |
-| Arbitrum  | yes | yes | yes |
-| Optimism  | yes | yes | yes |
-| Klaytn    | yes | no | yes |
-| Avalanche | yes | no | yes |
-| Solana    | soon | soon | soon |
+|                     | `Floor`            | `Metadata`         | `Candles`          |
+|---------------------|:------------------:|:------------------:|:------------------:|
+| Ethereum            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Polygon             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Binance Smart Chain | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Arbitrum            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Optimism            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Klaytn              | :heavy_check_mark: | :x:                | :heavy_check_mark: |
+| Avalanche           | :heavy_check_mark: | :x:                | :heavy_check_mark: |
+| Solana              | :soon:             | :soon:             | :soon:             |
 
 ## Installation
 Run `yarn add @mimicry/kaleidoscope@latest` to install the module.
