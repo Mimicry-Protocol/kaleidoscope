@@ -22,25 +22,25 @@ import 'dotenv/config';
         
         const kaleidoscope = new Kaleidoscope(globalConfig);
         
-        const hvMtlFloor = await kaleidoscope.nftCollection.getFloor({
-            address: '0x4b15a9c28034dC83db40CD810001427d3BD7163D',
-        }, {
-            filter: "mad",
-            method: "mean",
-        });
-        console.log(hvMtlFloor);
-        console.log(hvMtlFloor.sources);
+        // const hvMtlFloor = await kaleidoscope.nftCollection.getFloor({
+        //     address: '0x4b15a9c28034dC83db40CD810001427d3BD7163D',
+        // }, {
+        //     filter: "mad",
+        //     method: "mean",
+        // });
+        // console.log(hvMtlFloor);
+        // console.log(hvMtlFloor.sources);
 
         // const hvMtlMeta = await kaleidoscope.nftCollection.getMetadata({
         //     address: '0x4b15a9c28034dC83db40CD810001427d3BD7163D',
         // }, 'reservoir');
         // console.log(hvMtlMeta);
 
-        // const hvMtlFloorChart = await kaleidoscope.nftCollection.getFloorChart({
-        //     address: '0x4b15a9c28034dC83db40CD810001427d3BD7163D',
-        // }, 'coinGeckoPro');
-        // console.log(hvMtlFloorChart.data.floor_price_native);
-        // console.log(hvMtlFloorChart.data.h24_volume_native);
+        const hvMtlFloorChart = await kaleidoscope.nftCollection.getFloorChart({
+            address: '0x4b15a9c28034dC83db40CD810001427d3BD7163D',
+        }, 'coinGeckoPro');
+        console.log(hvMtlFloorChart.data.ticks.h24_volume_native);
+        // console.log(hvMtlFloorChart);
 
         // const y00tsFloor = await kaleidoscope.nftCollection.getFloor({
         //     address: '0x670fd103b1a08628e9557cd66b87ded841115190',
