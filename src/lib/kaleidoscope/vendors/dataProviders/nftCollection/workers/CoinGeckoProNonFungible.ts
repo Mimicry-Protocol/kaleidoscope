@@ -30,10 +30,11 @@ export class CoinGeckoProNonFungible extends RestfulProvider
     };
 
     const json: any = await this.gotJson(uri, options);
+
     const currencyInfo = this.getCurrencyInfoFromChain(_contract.chain);
-    let combinedResponse = {
-      ...currencyInfo,
-      ...json,
+    const combinedResponse = {
+      nativeCurrencyInfo: currencyInfo,
+      ticks: json,
     };
     return combinedResponse;
   }
@@ -77,7 +78,7 @@ export class CoinGeckoProNonFungible extends RestfulProvider
         throw new Error(
           'Solana is supported by CoinGecko, but not yet implemented.'
         );
-        return 'solana';
+      // return 'solana';
       case Chain.OPTIMISM:
         return 'optimistic-ethereum';
       case Chain.AVALANCHE:

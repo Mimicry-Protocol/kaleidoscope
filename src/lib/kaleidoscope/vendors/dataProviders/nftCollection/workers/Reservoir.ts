@@ -36,8 +36,8 @@ export class Reservoir extends RestfulProvider
     // Reservoir doesn't use the last lowest sale price for floor, but rather
     // the average of the top bid and floor ask.
     const json: any = await this.gotJson(uri, options);
-    const ask: number = Number(json.stats.market.floorAsk.price.amount.decimal);
-    const bid: number = Number(json.stats.market.topBid.price.amount.decimal);
+    const ask = Number(json.stats.market.floorAsk.price.amount.decimal);
+    const bid = Number(json.stats.market.topBid.price.amount.decimal);
     const floor: number = (ask + bid) / 2;
 
     const currencyInfo = this.getCurrencyInfoFromChain(_contract.chain);

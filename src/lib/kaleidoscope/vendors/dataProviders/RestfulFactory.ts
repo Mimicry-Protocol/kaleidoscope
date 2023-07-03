@@ -10,7 +10,7 @@ import { median, random } from '../../../utils/consensusMethods';
 import { mean } from '../../../utils/consensusMethods/mean';
 
 export class RestfulFactory {
-  private _verbose: boolean = false;
+  private _verbose = false;
 
   constructor(_globalConfig: any) {
     if (__DEV__) {
@@ -68,7 +68,7 @@ export class RestfulFactory {
     }
 
     let finalValue;
-    let verboseOutput: any = {
+    const verboseOutput: any = {
       method: _method,
       timestamp: new Date().toISOString(),
     };

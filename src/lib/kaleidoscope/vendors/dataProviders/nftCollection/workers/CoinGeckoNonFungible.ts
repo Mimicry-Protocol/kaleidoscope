@@ -45,7 +45,7 @@ export class CoinGeckoNonFungible extends RestfulProvider
         throw new Error(
           'Solana is supported by CoinGecko, but not yet implemented.'
         );
-        return 'solana';
+      // return 'solana';
       case Chain.OPTIMISM:
         return 'optimistic-ethereum';
       case Chain.AVALANCHE:
