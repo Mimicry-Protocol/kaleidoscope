@@ -1,6 +1,7 @@
 import { ConsensusMechanism, ContractPointer, Value } from '../../../../types';
 import { RestfulFactory } from '../RestfulFactory';
 import { FungibleDataProvider } from './FungibleDataProvider';
+import { CoinGeckoFungible } from './workers/CoinGeckoFungible';
 import { DiaFungible } from './workers/DiaFungible';
 
 // @ts-ignore
@@ -18,6 +19,9 @@ export class FungibleFactory extends RestfulFactory {
     switch (_providerName) {
       case 'dia':
         this._dataProviders[_providerName] = new DiaFungible(_providerConfig);
+        break;
+      case 'coinGecko':
+        this._dataProviders[_providerName] = new CoinGeckoFungible(_providerConfig);
         break;
       default:
         throw new Error(

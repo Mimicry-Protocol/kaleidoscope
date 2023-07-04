@@ -2,10 +2,10 @@ import { ContractPointer, Value } from '../../../../../types';
 import { RestfulProvider } from '../../RestfulProvider';
 import { FungibleDataProvider } from '../FungibleDataProvider';
 
-export class DiaFungible extends RestfulProvider
+export class CoinGeckoFungible extends RestfulProvider
   implements FungibleDataProvider {
   constructor(_config: any) {
-    const apiHost = 'https://api.diadata.org/v1/';
+    const apiHost = 'https://api.coingecko.com/api/v3/';
     super(_config, apiHost);
   }
 
@@ -14,6 +14,6 @@ export class DiaFungible extends RestfulProvider
   }
 
   getName(): string {
-    return 'Dia';
+    return 'CoinGecko';
   }
 }
