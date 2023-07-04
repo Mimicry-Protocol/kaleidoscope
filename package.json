@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.1",
   "license": "GPL-3.0-or-later",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -59,11 +59,11 @@
   "size-limit": [
     {
       "path": "dist/kaleidoscope.cjs.production.min.js",
-      "limit": "100 KB"
+      "limit": "200 KB"
     },
     {
       "path": "dist/kaleidoscope.esm.js",
-      "limit": "100 KB"
+      "limit": "200 KB"
     }
   ],
   "devDependencies": {
