@@ -5,7 +5,7 @@ import { median, random } from '../../../utils/consensusMethods';
 import { mean } from '../../../utils/consensusMethods/mean';
 
 export class RestfulFactory {
-  private _verbose = false;
+  private _verbose: boolean = false;
 
   constructor(_globalConfig: any) {
     if (__DEV__) {
@@ -13,7 +13,7 @@ export class RestfulFactory {
     }
 
     if (_globalConfig.verbose) {
-      this._verbose = _globalConfig.verbose;
+      this._verbose = Boolean(_globalConfig.verbose);
     }
 
     if (!_globalConfig.dataProviders) {
