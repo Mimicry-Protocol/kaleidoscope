@@ -70,9 +70,9 @@ export class Reservoir extends RestfulProvider
       openseaVerificationStatus:
         collection.openseaVerificationStatus === 'verified' ? true : false,
       openseaSlug: collection.slug,
-      collectionSize: collection.tokenCount,
-      onSaleCount: collection.onSaleCount,
-      ownerCount: collection.ownerCount,
+      collectionSize: Number(collection.tokenCount),
+      onSaleCount: Number(collection.onSaleCount),
+      ownerCount: Number(collection.ownerCount),
       contractType: collection.contractKind,
       images: {
         thumbnail: collection.image,
