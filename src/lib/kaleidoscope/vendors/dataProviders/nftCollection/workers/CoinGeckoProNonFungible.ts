@@ -1,10 +1,11 @@
 import { Chain, Timeframe } from '../../../../../enums';
-import { ContractPointer, Value } from '../../../../../types';
+import { ContractPointer, NFTCollectionMetadata, Value } from '../../../../../types';
 import { RestfulProvider } from '../../RestfulProvider';
 import { NftCollectionDataProvider } from '../NftCollectionDataProvider';
 import { numberToValue } from '../../../../../utils/numberToValue';
 import { ticksToIOCHLV } from '../../../../../utils/charts/ticksToIOCHLV';
 import { batchCandleJSON, IOHLCV } from 'candlestick-convert';
+import { chainToBlockchainExplorerHost } from '../../../../../utils/crossChainSupport';
 
 // Docs: https://www.coingecko.com/en/api/documentation
 // Pro Docs: https://apiguide.coingecko.com/exclusive-endpoints/for-paid-plan-subscribers
@@ -119,8 +120,61 @@ export class CoinGeckoProNonFungible extends RestfulProvider
     );
   }
 
+  // /nfts/{asset_platform_id}/contract/{contract_address}
   async getMetadata(_contract: ContractPointer): Promise<any> {
-    throw new Error('Method not implemented.');
+    const host = this.getApiHost();
+    const chain = this.getBlockchain(_contract.chain);
+    const uri = `${host}nfts/${chain}/contract/${_contract.address}`;
+    const options = {
+      headers: {
+        Accept: 'application/json',
+        'x-cg-pro-api-key': this.getApiKey(),
+      },
+    };
+
+    const json: any = await this.gotJson(uri, options);
+    
+    const currencyInfo = this.getCurrencyInfoFromChain(_contract.chain);
+    const metadata: NFTCollectionMetadata = {
+      contract: _contract,
+      symbol: json.symbol,
+      name: json.name,
+      description: json.description,
+      collectionSize: Number(json.total_supply),
+      ownerCount: Number(json.number_of_unique_addresses),
+      images: {
+        thumbnail: json.image.small,
+      },
+      urls: {
+        explorer: `${chainToBlockchainExplorerHost(_contract.chain)}/address/${
+          _contract.address
+        }`,
+        website: json.links.homepage,
+        discord: json.links.discord,
+        twitter: json.links.twitter,
+      },
+      stats: {
+        currencyInfo: currencyInfo,
+        floor: {
+          h24: numberToValue(Number(json.floor_price.native_currency), currencyInfo)
+            .amount,
+          h24Change: numberToValue(
+            Number(json.floor_price_24h_percentage_change.native_currency),
+            currencyInfo
+          ).amount.decimal,
+        },
+        volume: {
+          h24: numberToValue(Number(json.volume_24h.native_currency), currencyInfo)
+            .amount,
+          h24Change: numberToValue(
+            Number(json.volume_24h_percentage_change.native_currency),
+            currencyInfo
+          ).amount.decimal,
+        },
+      },
+    };
+
+    return metadata;
   }
 
   getBlockchain(_chain?: Chain): string {
