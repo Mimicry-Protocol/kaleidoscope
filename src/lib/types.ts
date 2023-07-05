@@ -52,8 +52,9 @@ export type NFTCollectionMetadata = {
   description: string;
   collectionSize: number;
   ownerCount: number;
-  onSaleCount: number;
   //
+  symbol?: string;
+  onSaleCount?: number;
   createdAt?: string;
   openseaVerificationStatus?: boolean;
   openseaSlug?: string;
