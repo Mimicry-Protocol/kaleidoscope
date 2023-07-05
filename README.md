@@ -33,8 +33,8 @@ Kaleidoscope is an NPM package that conveniently aggregates responses from multi
 | NFTBank       | :heavy_check_mark: | :x:                | :x:                |
 | NFTGo         | :heavy_check_mark: | :x:                | :x:                |
 | Reservoir     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| CoinGecko     | :heavy_check_mark: | :x:                | :x:                |
-| CoinGecko Pro | :heavy_check_mark: | :x:                | :heavy_check_mark: |
+| CoinGecko     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
+| CoinGecko Pro | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 ### Supported Chains
 |                     | `Floor`            | `Metadata`         | `Candles`          |
