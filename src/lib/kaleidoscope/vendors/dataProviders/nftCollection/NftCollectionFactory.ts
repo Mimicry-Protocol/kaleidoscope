@@ -97,11 +97,7 @@ export class NftCollectionFactory extends RestfulFactory {
       this._dataProviders,
       _providerName
     );
-    return this.runFactory(
-      providers, 
-      'getFloorChart', 
-      [_contract, _timeframe]
-    );
+    return this.runFactory(providers, 'getFloorChart', [_contract, _timeframe]);
   }
 
   async getMetadata(
@@ -112,10 +108,6 @@ export class NftCollectionFactory extends RestfulFactory {
       this._dataProviders,
       _providerName
     );
-    return this.runFactory(
-      providers, 
-      'getMetadata', 
-      [_contract]
-    );
+    return this.runFactory(providers, 'getMetadata', [_contract]);
   }
 }

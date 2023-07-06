@@ -1,5 +1,9 @@
 import { Chain } from '../../../../../enums';
-import { ContractPointer, NFTCollectionMetadata, Value } from '../../../../../types';
+import {
+  ContractPointer,
+  NFTCollectionMetadata,
+  Value,
+} from '../../../../../types';
 import { RestfulProvider } from '../../RestfulProvider';
 import { NftCollectionDataProvider } from '../NftCollectionDataProvider';
 import { numberToValue } from '../../../../../utils/numberToValue';
@@ -33,7 +37,7 @@ export class CoinGeckoNonFungible extends RestfulProvider
     const chain = this.getBlockchain(_contract.chain);
     const uri = `${host}nfts/${chain}/contract/${_contract.address}`;
     const json: any = await this.gotJson(uri);
-    
+
     const currencyInfo = this.getCurrencyInfoFromChain(_contract.chain);
     const metadata: NFTCollectionMetadata = {
       contract: _contract,
@@ -56,16 +60,20 @@ export class CoinGeckoNonFungible extends RestfulProvider
       stats: {
         currencyInfo: currencyInfo,
         floor: {
-          h24: numberToValue(Number(json.floor_price.native_currency), currencyInfo)
-            .amount,
+          h24: numberToValue(
+            Number(json.floor_price.native_currency),
+            currencyInfo
+          ).amount,
           h24Change: numberToValue(
             Number(json.floor_price_24h_percentage_change.native_currency),
             currencyInfo
           ).amount.decimal,
         },
         volume: {
-          h24: numberToValue(Number(json.volume_24h.native_currency), currencyInfo)
-            .amount,
+          h24: numberToValue(
+            Number(json.volume_24h.native_currency),
+            currencyInfo
+          ).amount,
           h24Change: numberToValue(
             Number(json.volume_24h_percentage_change.native_currency),
             currencyInfo

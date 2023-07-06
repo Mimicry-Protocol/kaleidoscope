@@ -21,7 +21,9 @@ export class FungibleFactory extends RestfulFactory {
         this._dataProviders[_providerName] = new DiaFungible(_providerConfig);
         break;
       case 'coinGecko':
-        this._dataProviders[_providerName] = new CoinGeckoFungible(_providerConfig);
+        this._dataProviders[_providerName] = new CoinGeckoFungible(
+          _providerConfig
+        );
         break;
       default:
         throw new Error(

@@ -20,10 +20,10 @@ export class Kaleidoscope {
     } else {
       this.nftCollection = new NftCollectionFactory({
         dataProviders: {
-            nfts: {
-                dia: true,
-                coinGecko: true,
-            },
+          nfts: {
+            dia: true,
+            coinGecko: true,
+          },
         },
       });
     }
@@ -35,9 +35,9 @@ export class Kaleidoscope {
       this.fungibleToken = new FungibleFactory({
         dataProviders: {
           fungibleTokens: {
-                dia: true,
-                coinGecko: true,
-            },
+            dia: true,
+            coinGecko: true,
+          },
         },
       });
     }
