@@ -44,6 +44,10 @@ export class Reservoir extends RestfulProvider
     return numberToValue(floor, currencyInfo);
   }
 
+  async getMarketCap(_contract: ContractPointer): Promise<Value> {
+    throw new Error('Method not implemented.');
+  }
+
   // https://docs.reservoir.tools/reference/getcollectionsv5
   // https://api.reservoir.tools/collections/v5?id={contractAddress}
   async getMetadata(_contract: ContractPointer): Promise<any> {

@@ -27,26 +27,26 @@ Kaleidoscope is an NPM package that conveniently aggregates responses from multi
 
 ### NFT Collection Data Providers
 
-|               | `Floor`            | `Metadata`         | `Candles`          |
-|---------------|:------------------:|:------------------:|:------------------:|
-| DIA           | :heavy_check_mark: | :x:                | :x:                |
-| NFTBank       | :heavy_check_mark: | :x:                | :x:                |
-| NFTGo         | :heavy_check_mark: | :x:                | :x:                |
-| Reservoir     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| CoinGecko     | :heavy_check_mark: | :heavy_check_mark: | :x:                |
-| CoinGecko Pro | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+|               | `Floor`            | `Market Cap`       | `Metadata`         | `Candles`          |
+|---------------|:------------------:|:------------------:|:------------------:|:------------------:|
+| DIA           | :heavy_check_mark: | :x:                | :x:                | :x:                |
+| NFTBank       | :heavy_check_mark: | :x:                | :x:                | :x:                |
+| NFTGo         | :heavy_check_mark: | :heavy_check_mark: | :x:                | :x:                |
+| Reservoir     | :heavy_check_mark: | :x:                | :heavy_check_mark: | :x:                |
+| CoinGecko     | :heavy_check_mark: | :x:                | :heavy_check_mark: | :x:                |
+| CoinGecko Pro | :heavy_check_mark: | :x:                | :heavy_check_mark: | :heavy_check_mark: |
 
 ### Supported Chains
-|                     | `Floor`            | `Metadata`         | `Candles`          |
-|---------------------|:------------------:|:------------------:|:------------------:|
-| Ethereum            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Polygon             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Binance Smart Chain | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Arbitrum            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Optimism            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-| Klaytn              | :heavy_check_mark: | :x:                | :heavy_check_mark: |
-| Avalanche           | :heavy_check_mark: | :x:                | :heavy_check_mark: |
-| Solana              | :soon:             | :soon:             | :soon:             |
+|                     | `Floor`            | `Market Cap`       | `Metadata`         | `Candles`          |
+|---------------------|:------------------:|:------------------:|:------------------:|:------------------:|
+| Ethereum            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| Polygon             | :heavy_check_mark: | :x:                | :heavy_check_mark: | :heavy_check_mark: |
+| Binance Smart Chain | :heavy_check_mark: | :x:                | :heavy_check_mark: | :heavy_check_mark: |
+| Arbitrum            | :heavy_check_mark: | :x:                | :heavy_check_mark: | :heavy_check_mark: |
+| Optimism            | :heavy_check_mark: | :x:                | :heavy_check_mark: | :heavy_check_mark: |
+| Klaytn              | :heavy_check_mark: | :x:                | :x:                | :heavy_check_mark: |
+| Avalanche           | :heavy_check_mark: | :x:                | :x:                | :heavy_check_mark: |
+| Solana              | :soon:             | :soon:             | :soon:             | :soon:             |
 
 ## Installation
 Run `yarn add @mimicry/kaleidoscope@latest` to install the module.

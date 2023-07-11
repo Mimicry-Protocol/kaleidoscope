@@ -32,6 +32,25 @@ export class NftGo extends RestfulProvider
     return numberToValue(Number(json.floor_price.value), currencyInfo);
   }
 
+  // @see https://docs.nftgo.io/reference/get_metrics_eth_v1_collection__contract_address__metrics_get-1
+  // {host}/{chain}/v1/collection/{contract_address}/metrics
+  async getMarketCap(_contract: ContractPointer): Promise<Value> {
+    const host = this.getApiHost();
+    const chain = this.getBlockchain(_contract.chain);
+    const uri = `${host}${chain}/v1/collection/${_contract.address}/metrics`;
+    const options = {
+      headers: {
+        Accept: 'application/json',
+        'X-API-KEY': this.getApiKey(),
+      },
+    };
+
+    const json: any = await this.gotJson(uri, options);
+
+    const currencyInfo = this.getCurrencyInfoFromChain(_contract.chain);
+    return numberToValue(Number(json.market_cap_eth), currencyInfo);
+  }
+
   async getMetadata(_contract: ContractPointer): Promise<any> {
     throw new Error('Method not implemented.');
   }

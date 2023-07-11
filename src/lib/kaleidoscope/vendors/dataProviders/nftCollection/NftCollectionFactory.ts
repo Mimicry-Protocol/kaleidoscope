@@ -100,6 +100,17 @@ export class NftCollectionFactory extends RestfulFactory {
     return this.runFactory(providers, 'getFloorChart', [_contract, _timeframe]);
   }
 
+  async getMarketCap(
+    _contract: ContractPointer,
+    _providerName: string
+  ): Promise<any> {
+    const providers = this.getCorrectProviders(
+      this._dataProviders,
+      _providerName
+    );
+    return this.runFactory(providers, 'getMarketCap', [_contract]);
+  }
+
   async getMetadata(
     _contract: ContractPointer,
     _providerName: string

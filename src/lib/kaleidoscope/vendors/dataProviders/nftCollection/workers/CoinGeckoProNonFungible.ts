@@ -120,6 +120,10 @@ export class CoinGeckoProNonFungible extends RestfulProvider
     );
   }
 
+  async getMarketCap(_contract: ContractPointer): Promise<Value> {
+    throw new Error('Method not implemented.');
+  }
+
   // /nfts/{asset_platform_id}/contract/{contract_address}
   async getMetadata(_contract: ContractPointer): Promise<any> {
     const host = this.getApiHost();
