@@ -11,13 +11,13 @@
 <p align="center">
   <a aria-label="License" href="LICENSE">
     <img src="https://badgen.net/badge/license/GPLv3/pink">
-  </a>&nbsp;
+  <!-- </a>&nbsp;
   <a aria-label="Size Test" href="https://github.com/Mimicry-Protocol/kaleidoscope/actions/workflows/size.yml">
     <img alt="" src="https://github.com/Mimicry-Protocol/kaleidoscope/actions/workflows/size.yml/badge.svg">
   </a>&nbsp;
   <a aria-label="CI Test" href="https://github.com/Mimicry-Protocol/kaleidoscope/actions/workflows/main.yml">
     <img alt="" src="https://github.com/Mimicry-Protocol/kaleidoscope/actions/workflows/main.yml/badge.svg">
-  </a>
+  </a> -->
 </p>
 
 
